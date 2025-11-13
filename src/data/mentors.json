@@ -1,0 +1,68 @@
+[
+  {
+    "id": "1",
+    "name": "Dr. Sarah Chen",
+    "role": "AI/ML Expert",
+    "bio": "Leading researcher in artificial intelligence with 15 years of experience. Passionate about making AI accessible to everyone.",
+    "image": "👩‍🔬",
+    "expertise": ["Machine Learning", "Deep Learning", "Python", "TensorFlow"],
+    "linkedin": "sarahchen",
+    "github": "sarahchen",
+    "created_at": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "name": "Marcus Williams",
+    "role": "Full Stack Developer",
+    "bio": "Senior engineer at a Fortune 500 company. Loves mentoring and helping developers build scalable applications.",
+    "image": "👨‍💻",
+    "expertise": ["React", "Node.js", "MongoDB", "AWS"],
+    "linkedin": "marcusw",
+    "github": "marcusw",
+    "created_at": "2025-01-02T00:00:00.000Z"
+  },
+  {
+    "id": "3",
+    "name": "Priya Sharma",
+    "role": "Mobile Development Lead",
+    "bio": "Expert in building cross-platform mobile apps. Former startup founder with multiple successful apps.",
+    "image": "👩‍💼",
+    "expertise": ["React Native", "Flutter", "iOS", "Android"],
+    "linkedin": "priyasharma",
+    "github": "priyasharma",
+    "created_at": "2025-01-03T00:00:00.000Z"
+  },
+  {
+    "id": "4",
+    "name": "Alex Rodriguez",
+    "role": "DevOps Architect",
+    "bio": "Cloud infrastructure specialist with expertise in Kubernetes, Docker, and CI/CD pipelines.",
+    "image": "🧑‍💻",
+    "expertise": ["Kubernetes", "Docker", "AWS", "CI/CD"],
+    "linkedin": "alexr",
+    "github": "alexr",
+    "created_at": "2025-01-04T00:00:00.000Z"
+  },
+  {
+    "id": "5",
+    "name": "Emily Zhang",
+    "role": "UI/UX Designer",
+    "bio": "Award-winning designer focused on creating beautiful and intuitive user experiences.",
+    "image": "👩‍🎨",
+    "expertise": ["Figma", "UI Design", "UX Research", "Prototyping"],
+    "linkedin": "emilyzhang",
+    "github": "emilyzhang",
+    "created_at": "2025-01-05T00:00:00.000Z"
+  },
+  {
+    "id": "6",
+    "name": "James Miller",
+    "role": "Blockchain Developer",
+    "bio": "Pioneer in blockchain technology and smart contracts. Building the decentralized future.",
+    "image": "👨‍🔧",
+    "expertise": ["Solidity", "Web3", "Ethereum", "Smart Contracts"],
+    "linkedin": "jamesmiller",
+    "github": "jamesmiller",
+    "created_at": "2025-01-06T00:00:00.000Z"
+  }
+]

@@ -1,7 +1,10 @@
-import { useEffect, useState } from 'react';
-import { Users } from 'lucide-react';
-import { supabase, TeamMember } from '../lib/supabase';
-import PersonModal from '../components/Modals/PersonModal';
+"use client";
+
+import { useEffect, useState } from "react";
+import { Users } from "lucide-react";
+import PersonModal from "../components/Modals/PersonModal";
+import teamData from "../data/team_members.json";
+import { TeamMember } from "../types/people";
 
 export default function Team() {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
@@ -9,33 +12,30 @@ export default function Team() {
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
 
   useEffect(() => {
-    fetchTeamMembers();
+    const load = async () => {
+      try {
+        await new Promise((r) => setTimeout(r, 200));
+        const sorted = [...teamData].sort((a, b) =>
+          (a.created_at || a.id).localeCompare(b.created_at || b.id)
+        );
+        setTeamMembers(sorted);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
   }, []);
 
-  const fetchTeamMembers = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('team_members')
-        .select('*')
-        .order('created_at', { ascending: true });
-
-      if (error) throw error;
-      setTeamMembers(data || []);
-    } catch (error) {
-      console.error('Error fetching team members:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const departmentColors: Record<string, string> = {
-    Leadership: 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400',
-    Operations: 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400',
-    Technology: 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400',
-    Marketing: 'bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400',
-    Partnerships: 'bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400',
-    Community: 'bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400',
-    Design: 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400',
+    Leadership: "bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400",
+    Operations: "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400",
+    Technology: "bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400",
+    Marketing: "bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400",
+    Partnerships: "bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400",
+    Community: "bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400",
+    Design: "bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400"
   };
 
   return (
@@ -89,7 +89,7 @@ export default function Team() {
                       <span
                         className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
                           departmentColors[member.department] ||
-                          'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'
+                          "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
                         }`}
                       >
                         {member.department}

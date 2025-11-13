@@ -1,7 +1,10 @@
-import { useEffect, useState } from 'react';
-import { Users } from 'lucide-react';
-import { supabase, Mentor } from '../lib/supabase';
-import PersonModal from '../components/Modals/PersonModal';
+"use client";
+
+import { useEffect, useState } from "react";
+import { Users } from "lucide-react";
+import PersonModal from "../components/Modals/PersonModal";
+import mentorsData from "../data/mentors.json";
+import { Mentor } from "../types/people";
 
 export default function Mentors() {
   const [mentors, setMentors] = useState<Mentor[]>([]);
@@ -9,24 +12,24 @@ export default function Mentors() {
   const [selectedMentor, setSelectedMentor] = useState<Mentor | null>(null);
 
   useEffect(() => {
-    fetchMentors();
+    // If you prefer to simulate async loading, keep setTimeout; otherwise you can set directly.
+    const load = async () => {
+      try {
+        // Simulate a small delay for UX (remove setTimeout if you don't want it)
+        await new Promise((r) => setTimeout(r, 200));
+        // sort by created_at ascending (fallback to id if missing)
+        const sorted = [...mentorsData].sort((a, b) =>
+          (a.created_at || a.id).localeCompare(b.created_at || b.id)
+        );
+        setMentors(sorted);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
   }, []);
-
-  const fetchMentors = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('mentors')
-        .select('*')
-        .order('created_at', { ascending: true });
-
-      if (error) throw error;
-      setMentors(data || []);
-    } catch (error) {
-      console.error('Error fetching mentors:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="bg-white dark:bg-black min-h-screen">
@@ -80,7 +83,7 @@ export default function Mentors() {
                         {mentor.bio}
                       </p>
                       <div className="flex flex-wrap gap-2 justify-center">
-                        {mentor.expertise.slice(0, 3).map((skill, index) => (
+                        {(mentor.expertise || []).slice(0, 3).map((skill, index) => (
                           <span
                             key={index}
                             className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-black dark:text-white rounded-full text-xs font-semibold"
@@ -88,7 +91,7 @@ export default function Mentors() {
                             {skill}
                           </span>
                         ))}
-                        {mentor.expertise.length > 3 && (
+                        {(mentor.expertise || []).length > 3 && (
                           <span className="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-full text-xs font-semibold">
                             +{mentor.expertise.length - 3} more
                           </span>

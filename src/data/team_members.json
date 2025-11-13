@@ -1,0 +1,90 @@
+[
+  {
+    "id": "1",
+    "name": "Rahul Kumar",
+    "role": "Founder & CEO",
+    "bio": "Visionary leader of D4 Community with a passion for building tech communities and fostering innovation.",
+    "image": "👨‍💼",
+    "department": "Leadership",
+    "linkedin": "rahulkumar",
+    "twitter": "rahulkumar",
+    "created_at": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "name": "Ananya Desai",
+    "role": "Event Coordinator",
+    "bio": "Organizing amazing tech events and creating memorable experiences for the community.",
+    "image": "👩‍💼",
+    "department": "Operations",
+    "linkedin": "ananyadesai",
+    "twitter": "ananyadesai",
+    "created_at": "2025-01-02T00:00:00.000Z"
+  },
+  {
+    "id": "3",
+    "name": "Vikram Singh",
+    "role": "Tech Lead",
+    "bio": "Leading the technical direction and ensuring smooth execution of all hackathon infrastructure.",
+    "image": "👨‍💻",
+    "department": "Technology",
+    "linkedin": "vikramsingh",
+    "twitter": "vikramsingh",
+    "created_at": "2025-01-03T00:00:00.000Z"
+  },
+  {
+    "id": "4",
+    "name": "Sneha Patel",
+    "role": "Marketing Head",
+    "bio": "Spreading the word about our events and building an engaged community online.",
+    "image": "👩‍💼",
+    "department": "Marketing",
+    "linkedin": "snehapatel",
+    "twitter": "snehapatel",
+    "created_at": "2025-01-04T00:00:00.000Z"
+  },
+  {
+    "id": "5",
+    "name": "Arjun Mehta",
+    "role": "Sponsorship Manager",
+    "bio": "Building partnerships with companies and securing support for our events.",
+    "image": "🤝",
+    "department": "Partnerships",
+    "linkedin": "arjunmehta",
+    "twitter": "arjunmehta",
+    "created_at": "2025-01-05T00:00:00.000Z"
+  },
+  {
+    "id": "6",
+    "name": "Neha Sharma",
+    "role": "Community Manager",
+    "bio": "Keeping our community engaged, supported, and connected throughout the year.",
+    "image": "👩‍💻",
+    "department": "Community",
+    "linkedin": "nehagupta",
+    "twitter": "nehagupta",
+    "created_at": "2025-01-06T00:00:00.000Z"
+  },
+  {
+    "id": "7",
+    "name": "Karthik Reddy",
+    "role": "Design Lead",
+    "bio": "Creating stunning visuals and branding for all D4 Community initiatives.",
+    "image": "🎨",
+    "department": "Design",
+    "linkedin": "karthikreddy",
+    "twitter": "karthikreddy",
+    "created_at": "2025-01-07T00:00:00.000Z"
+  },
+  {
+    "id": "8",
+    "name": "Ayush",
+    "role": "yoyoyo",
+    "bio": "Managing our amazing team of volunteers who make everything possible.",
+    "image": "👥",
+    "department": "Operations",
+    "linkedin": "meerashah",
+    "twitter": "meerashah",
+    "created_at": "2025-01-08T00:00:00.000Z"
+  }
+]

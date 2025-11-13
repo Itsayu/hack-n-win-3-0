@@ -1,15 +1,32 @@
-import { useState, useRef } from 'react';
-import { Camera, Download, Upload } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+"use client";
+
+import { useState, useRef } from "react";
+import { Camera, Download, Upload } from "lucide-react";
+
+/**
+ * Badge component (no DB)
+ * - Saves created badges to localStorage under key "hnw_badges"
+ * - Allows downloading badge data as JSON
+ * - Keeps visual badge preview and screenshot suggestion (no print)
+ */
+
+type BadgeRecord = {
+  id: string;
+  participant_name: string;
+  participant_email: string;
+  photo_url?: string | null;
+  badge_number: string;
+  created_at: string;
+};
 
 export default function Badge() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [photoUrl, setPhotoUrl] = useState('');
-  const [previewPhoto, setPreviewPhoto] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [photoUrl, setPhotoUrl] = useState("");
+  const [previewPhoto, setPreviewPhoto] = useState("");
   const [loading, setLoading] = useState(false);
   const [badgeGenerated, setBadgeGenerated] = useState(false);
-  const [badgeNumber, setBadgeNumber] = useState('');
+  const [badgeNumber, setBadgeNumber] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
 
@@ -32,51 +49,86 @@ export default function Badge() {
       .toUpperCase()}`;
   };
 
+  const saveBadgeToLocalStorage = (record: BadgeRecord) => {
+    try {
+      const raw = localStorage.getItem("hnw_badges");
+      const arr: BadgeRecord[] = raw ? JSON.parse(raw) : [];
+      arr.push(record);
+      localStorage.setItem("hnw_badges", JSON.stringify(arr));
+    } catch (err) {
+      console.error("Failed to save badge locally:", err);
+    }
+  };
+
   const handleGenerateBadge = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email) {
-      alert('Please fill in all required fields');
+      alert("Please fill in all required fields");
       return;
     }
 
     setLoading(true);
     const newBadgeNumber = generateBadgeNumber();
+    const record: BadgeRecord = {
+      id: Date.now().toString(),
+      participant_name: name,
+      participant_email: email,
+      photo_url: photoUrl || null,
+      badge_number: newBadgeNumber,
+      created_at: new Date().toISOString(),
+    };
 
     try {
-      const { error } = await supabase.from('badges').insert({
-        participant_name: name,
-        participant_email: email,
-        photo_url: photoUrl || null,
-        badge_number: newBadgeNumber,
-      });
-
-      if (error) throw error;
+      // Save locally (no DB)
+      saveBadgeToLocalStorage(record);
 
       setBadgeNumber(newBadgeNumber);
       setBadgeGenerated(true);
     } catch (error) {
-      console.error('Error generating badge:', error);
-      alert('Failed to generate badge. Please try again.');
+      console.error("Error generating badge:", error);
+      alert("Failed to generate badge. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
+  // Download the badge data as a JSON file
+  const downloadBadgeJSON = () => {
+    const data = {
+      participant_name: name,
+      participant_email: email,
+      photo_url: photoUrl || null,
+      badge_number: badgeNumber,
+      created_at: new Date().toISOString(),
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `badge-${badgeNumber || "unknown"}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
+
+  // Download action — only JSON + screenshot suggestion (no print)
   const handleDownload = () => {
-    if (badgeRef.current) {
-      alert(
-        'To download your badge, take a screenshot of the badge below or use browser print functionality (Ctrl+P / Cmd+P).'
-      );
-    }
+    downloadBadgeJSON();
+    alert(
+      "Badge data downloaded as JSON. To save the visual badge, take a screenshot of the badge area."
+    );
   };
 
   const handleReset = () => {
-    setName('');
-    setEmail('');
-    setPhotoUrl('');
-    setPreviewPhoto('');
+    setName("");
+    setEmail("");
+    setPhotoUrl("");
+    setPreviewPhoto("");
     setBadgeGenerated(false);
-    setBadgeNumber('');
+    setBadgeNumber("");
   };
 
   return (
@@ -168,15 +220,13 @@ export default function Badge() {
                       disabled={loading}
                       className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all transform hover:scale-105 disabled:transform-none disabled:cursor-not-allowed"
                     >
-                      {loading ? 'Generating...' : 'Generate Badge'}
+                      {loading ? "Generating..." : "Generate Badge"}
                     </button>
                   </form>
                 </div>
 
                 <div className="bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 border-2 border-red-600">
-                  <h3 className="text-2xl font-bold mb-4 text-black dark:text-white">
-                    Badge Preview
-                  </h3>
+                  <h3 className="text-2xl font-bold mb-4 text-black dark:text-white">Badge Preview</h3>
                   <p className="text-gray-700 dark:text-gray-300 mb-6">
                     Fill in your information to see a preview of your badge
                   </p>
@@ -195,10 +245,10 @@ export default function Badge() {
                       </div>
                       <div className="mb-4">
                         <p className="text-2xl font-bold text-black dark:text-white">
-                          {name || 'Your Name'}
+                          {name || "Your Name"}
                         </p>
                         <p className="text-sm text-gray-600 dark:text-gray-400">
-                          {email || 'your.email@example.com'}
+                          {email || "your.email@example.com"}
                         </p>
                       </div>
                       <div className="border-t-2 border-red-600 pt-4">
@@ -219,7 +269,7 @@ export default function Badge() {
                   <div
                     ref={badgeRef}
                     className="bg-gradient-to-br from-black via-red-900 to-black rounded-2xl p-8 border-4 border-red-600 shadow-2xl"
-                    style={{ width: '400px' }}
+                    style={{ width: "400px" }}
                   >
                     <div className="bg-white dark:bg-gray-900 rounded-xl p-8">
                       <div className="text-center">
@@ -247,9 +297,7 @@ export default function Badge() {
                           </p>
                         </div>
                         <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3">
-                          <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">
-                            Badge Number
-                          </p>
+                          <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Badge Number</p>
                           <p className="text-sm font-mono font-bold text-black dark:text-white">
                             {badgeNumber}
                           </p>
@@ -265,8 +313,9 @@ export default function Badge() {
                     className="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all transform hover:scale-105 flex items-center justify-center gap-2"
                   >
                     <Download className="w-5 h-5" />
-                    Download Badge
+                    Download Badge Data
                   </button>
+
                   <button
                     onClick={handleReset}
                     className="bg-black dark:bg-white text-white dark:text-black font-bold py-4 px-8 rounded-lg text-lg transition-all transform hover:scale-105"
@@ -277,9 +326,9 @@ export default function Badge() {
 
                 <div className="mt-8 bg-gray-50 dark:bg-gray-900 rounded-xl p-6 max-w-2xl mx-auto">
                   <p className="text-gray-700 dark:text-gray-300 text-sm">
-                    <strong>Note:</strong> Please take a screenshot of your badge or print it using
-                    your browser's print function. Make sure to bring your badge to the event for
-                    identification and entry.
+                    <strong>Note:</strong> Your badge data is stored locally in your browser (localStorage)
+                    so it won't be shared with any server. Use <strong>Download Badge Data</strong> to
+                    export the record. To save the visual badge image, take a screenshot of the badge area.
                   </p>
                 </div>
               </div>
