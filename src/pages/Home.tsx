@@ -221,9 +221,14 @@ export default function Home() {
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto bg-gradient-to-br from-black via-red-900 to-black dark:from-red-900 dark:via-black dark:to-red-900 rounded-2xl p-8 md:p-12 text-white shadow-2xl">
-            <div className="text-center mb-8">
+            <div className="text-center mb-8 flex flex-col items-center">
               <div className="inline-block w-20 h-20 bg-red-600 rounded-full flex items-center justify-center mb-4">
-                <span className="text-5xl">🦇</span>
+                {/* <span className="text-5xl">🦇</span> */}
+                <img
+                  src={batman}
+                  alt="Batman logo"
+                  className="w-40 h-40 object-contain"
+                />
               </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 Ready to Join the League?

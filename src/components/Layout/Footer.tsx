@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Twitter, Linkedin, Github, Mail } from 'lucide-react';
+import logo from '../../assets/batmans.png'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -11,7 +12,12 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center">
-                <span className="text-3xl">🦇</span>
+                {/* <span className="text-3xl">🦇</span> */}
+                <img
+                  src={logo}
+                  alt="Batman logo"
+                  className="w-30 h-30 object-contain"
+                />
               </div>
               <div>
                 <h3 className="text-2xl font-bold">Hack-N-Win 3.0</h3>

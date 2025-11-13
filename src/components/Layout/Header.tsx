@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Moon, Sun, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import { useTheme } from '../../contexts/ThemeContext';
+import logo from '../../assets/batmans.png'
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -33,8 +34,13 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo on the left */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 md:w-12 md:h-12 bg-black dark:bg-red-600 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform">
-              <span className="text-2xl md:text-3xl">🦇</span>
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-white dark:bg-red-600 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform">
+              {/* <span className="text-2xl md:text-3xl">🦇</span> */}
+              <img
+                  src={logo}
+                  alt="Batman logo"
+                  className="w-30 h-30 object-contain"
+                />
             </div>
             <div className="flex flex-col">
               <span className="text-xl md:text-2xl font-bold text-black dark:text-white tracking-tight">

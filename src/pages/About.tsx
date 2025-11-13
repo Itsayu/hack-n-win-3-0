@@ -1,4 +1,5 @@
 import { Target, Heart, Users, Lightbulb } from 'lucide-react';
+import batman from '../assets/batmans.png'
 
 export default function About() {
   return (
@@ -7,7 +8,12 @@ export default function About() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center text-white max-w-4xl mx-auto">
             <div className="w-24 h-24 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-8">
-              <span className="text-6xl">🦇</span>
+              {/* <span className="text-6xl">🦇</span> */}
+              <img
+                  src={batman}
+                  alt="Batman logo"
+                  className="w-40 h-40 object-contain"
+                />
             </div>
             <h1 className="text-5xl md:text-6xl font-bold mb-6">About Hack-N-Win 3.0</h1>
             <p className="text-xl md:text-2xl text-gray-300">
