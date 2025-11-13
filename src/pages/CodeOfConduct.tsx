@@ -1,5 +1,5 @@
 import { Shield, Heart, Users, AlertCircle } from 'lucide-react';
-
+import BatAnimation from "../components/Animations/BatAnimation";
 
 export default function CodeOfConduct() {
   return (

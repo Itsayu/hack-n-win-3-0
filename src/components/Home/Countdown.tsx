@@ -8,7 +8,7 @@ interface TimeLeft {
 }
 
 export default function Countdown() {
-  const targetDate = new Date('2025-12-31T00:00:00').getTime();
+  const targetDate = new Date('2026-03-07T00:00:00').getTime();
 
   const calculateTimeLeft = (): TimeLeft => {
     const difference = targetDate - new Date().getTime();
@@ -51,13 +51,13 @@ export default function Countdown() {
       <h2 className="text-3xl md:text-5xl font-bold text-center mb-8 md:mb-12 text-black dark:text-white">
         Hackathon Starts In
       </h2>
-      <div className="flex justify-center items-center gap-3 md:gap-6">
+      <div className="flex justify-center items-center gap-2 md:gap-6">
         <TimeBox value={timeLeft.days} label="Days" />
-        <span className="text-4xl md:text-6xl font-bold text-red-600 mb-6">:</span>
+        <span className="text-3xl md:text-6xl font-bold text-red-600 mb-6">:</span>
         <TimeBox value={timeLeft.hours} label="Hours" />
-        <span className="text-4xl md:text-6xl font-bold text-red-600 mb-6">:</span>
+        <span className="text-3xl md:text-6xl font-bold text-red-600 mb-6">:</span>
         <TimeBox value={timeLeft.minutes} label="Minutes" />
-        <span className="text-4xl md:text-6xl font-bold text-red-600 mb-6">:</span>
+        <span className="text-3xl md:text-6xl font-bold text-red-600 mb-6">:</span>
         <TimeBox value={timeLeft.seconds} label="Seconds" />
       </div>
     </div>

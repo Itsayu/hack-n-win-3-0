@@ -1,146 +1,145 @@
-import { useEffect, useState } from "react";
+"use client";
 
-/**
- * BatAnimation
- * - Spawns bats that fly across the screen from either left->right or right->left
- * - Each bat has randomized: side, top, delay, duration, and slight rotation/bob
- * - Bats from the right are mirrored so they face left
- */
+import { useEffect, useRef, useState } from "react";
+
+type Bat = {
+  id: number;
+  direction: "ltr" | "rtl";
+  top: number;
+  startSide: "left" | "right";
+  duration: number;
+  rotate: number;
+  size: number;
+};
 
 export default function BatAnimation() {
-  const [bats, setBats] = useState<
-    Array<{
-      id: number;
-      delay: number;
-      duration: number;
-      top: number;
-      side: "left" | "right";
-      size: number;
-      rotate: number;
-    }>
-  >([]);
+  const [bats, setBats] = useState<Bat[]>([]);
+  const nextId = useRef(1);
+  const intervalRef = useRef<number | null>(null);
+
+  const maxBats = 7;
+  const spawnMinMs = 700;
+  const spawnMaxMs = 1500;
+  const minDuration = 12; // Increased from 6
+  const maxDuration = 28; // Increased from 14
 
   useEffect(() => {
-    const createBat = (i: number) => {
-      const side = Math.random() > 0.5 ? "left" : "right";
-      return {
-        id: i,
-        delay: Math.random() * 6, // start delay in seconds
-        duration: 8 + Math.random() * 10, // flight duration
-        top: 5 + Math.random() * 85, // percent from top (5% - 90%)
-        side,
-        size: 16 + Math.random() * 28, // emoji font size in px
-        rotate: -15 + Math.random() * 30, // base rotation for variety
-      };
+    spawnBat();
+
+    const spawnLoop = () => {
+      const delay = Math.round(Math.random() * (spawnMaxMs - spawnMinMs) + spawnMinMs);
+      intervalRef.current = window.setTimeout(() => {
+        spawnBat();
+        spawnLoop();
+      }, delay);
     };
 
-    // create n bats
-    const initial = Array.from({ length: 7 }, (_, i) => createBat(i));
-    setBats(initial);
+    spawnLoop();
 
-    // optional: respawn new random bats periodically to keep variety
-    const interval = setInterval(() => {
-      setBats((prev) => {
-        // remove one and add a new randomized bat to keep movement lively
-        const next = prev.slice(1);
-        const newId = (prev[prev.length - 1]?.id ?? 0) + 1;
-        next.push(createBat(newId));
-        return next;
-      });
-    }, 6000);
-
-    return () => clearInterval(interval);
+    return () => {
+      if (intervalRef.current) clearTimeout(intervalRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  function spawnBat() {
+    setBats((prev) => {
+      if (prev.length >= maxBats) return prev;
+
+      const id = nextId.current++;
+      const direction = Math.random() > 0.5 ? ("ltr" as const) : ("rtl" as const);
+      const startSide = direction === "ltr" ? "left" : "right";
+
+      const cornerChance = Math.random();
+      let top: number;
+      if (cornerChance < 0.18) {
+        top = Math.random() * 12;
+      } else if (cornerChance < 0.36) {
+        top = 88 + Math.random() * 12;
+      } else {
+        top = 6 + Math.random() * 84;
+      }
+
+      const duration = Number((Math.random() * (maxDuration - minDuration) + minDuration).toFixed(2));
+      const rotate = (Math.random() - 0.5) * 40;
+      const size = Math.random() * 0.9 + 1.0;
+
+      const bat: Bat = { id, direction, top, startSide, duration, rotate, size };
+      return [...prev, bat];
+    });
+  }
+
+  const handleAnimationEnd = (id: number) => {
+    setBats((prev) => prev.filter((b) => b.id !== id));
+  };
+
   return (
-    <div className="fixed inset-0 pointer-events-none z-10 overflow-hidden">
+    <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
       {bats.map((bat) => {
-        const animationName = bat.side === "left" ? "flyRight" : "flyLeft";
-        const transformFlip = bat.side === "right" ? "scaleX(-1)" : "none";
+        const isLTR = bat.direction === "ltr";
+        const startLeft = isLTR ? "-60px" : "calc(100% + 60px)";
+        const endLeft = isLTR ? "calc(100% + 60px)" : "-60px";
+        const animationName = isLTR ? "fly-ltr" : "fly-rtl";
+
         return (
           <div
             key={bat.id}
-            className="absolute opacity-30 dark:opacity-20"
+            onAnimationEnd={() => handleAnimationEnd(bat.id)}
+            className="absolute"
             style={{
-              top: `${bat.top}%`,
-              left: bat.side === "left" ? "-60px" : undefined,
-              right: bat.side === "right" ? "-60px" : undefined,
-              fontSize: `${bat.size}px`,
-              transform: transformFlip,
-              animation: `${animationName} ${bat.duration}s linear ${bat.delay}s infinite`,
+              top: `${Math.max(0, Math.min(100, bat.top))}%`,
+              left: startLeft,
+              fontSize: `${bat.size}em`,
+              opacity: 0.18,
+              transform: `rotate(${bat.rotate}deg)`,
+              animationName,
+              animationDuration: `${bat.duration}s`,
+              animationTimingFunction: "linear",
+              animationFillMode: "forwards",
+              animationDelay: `${(Math.random() * 0.6).toFixed(2)}s`,
+              willChange: "transform, left",
             }}
             aria-hidden
           >
-            <span
-              style={{
-                display: "inline-block",
-                transform: `rotate(${bat.rotate}deg)`,
-                willChange: "transform, left, right",
-              }}
-            >
-              🦇
-            </span>
+            <span style={{ display: "inline-block" }}>🦇</span>
           </div>
         );
       })}
 
       <style>{`
-        @keyframes flyRight {
+        @keyframes fly-ltr {
           0% {
             left: -60px;
-            transform: translateY(0) rotate(-5deg);
-            opacity: 0.25;
+            transform: translateY(0) rotate(var(--rot, 0deg));
           }
-          25% {
-            transform: translateY(-8px) rotate(10deg);
-            opacity: 0.6;
-          }
-          50% {
-            left: calc(50% - 20px);
-            transform: translateY(0) rotate(-10deg);
-            opacity: 0.9;
-          }
-          75% {
-            transform: translateY(8px) rotate(10deg);
-            opacity: 0.6;
-          }
+          10% { transform: translateY(-8px) rotate(var(--rot, 0deg)); }
+          20% { transform: translateY(6px) rotate(var(--rot, 0deg)); }
+          30% { transform: translateY(-6px) rotate(var(--rot, 0deg)); }
+          40% { transform: translateY(4px) rotate(var(--rot, 0deg)); }
+          50% { transform: translateY(0) rotate(calc(var(--rot, 0deg) + 10deg)); }
+          60% { transform: translateY(-4px) rotate(calc(var(--rot, 0deg) - 6deg)); }
+          80% { transform: translateY(2px) rotate(var(--rot, 0deg)); }
           100% {
             left: calc(100% + 60px);
-            transform: translateY(0) rotate(-5deg);
-            opacity: 0.25;
+            transform: translateY(0) rotate(var(--rot, 0deg));
           }
         }
 
-        @keyframes flyLeft {
+        @keyframes fly-rtl {
           0% {
-            right: -60px;
-            transform: translateY(0) rotate(5deg);
-            opacity: 0.25;
+            left: calc(100% + 60px);
+            transform: translateY(0) rotate(var(--rot, 0deg));
           }
-          25% {
-            transform: translateY(-8px) rotate(-10deg);
-            opacity: 0.6;
-          }
-          50% {
-            right: calc(50% - 20px);
-            transform: translateY(0) rotate(10deg);
-            opacity: 0.9;
-          }
-          75% {
-            transform: translateY(8px) rotate(-10deg);
-            opacity: 0.6;
-          }
+          10% { transform: translateY(-8px) rotate(var(--rot, 0deg)); }
+          20% { transform: translateY(6px) rotate(var(--rot, 0deg)); }
+          30% { transform: translateY(-6px) rotate(var(--rot, 0deg)); }
+          40% { transform: translateY(4px) rotate(var(--rot, 0deg)); }
+          50% { transform: translateY(0) rotate(calc(var(--rot, 0deg) - 10deg)); }
+          60% { transform: translateY(-4px) rotate(calc(var(--rot, 0deg) + 6deg)); }
+          80% { transform: translateY(2px) rotate(var(--rot, 0deg)); }
           100% {
-            right: calc(100% + 60px);
-            transform: translateY(0) rotate(5deg);
-            opacity: 0.25;
-          }
-        }
-
-        /* reduce motion for users who prefer reduced motion */
-        @media (prefers-reduced-motion: reduce) {
-          .fixed [style*="animation"] {
-            animation: none !important;
+            left: -60px;
+            transform: translateY(0) rotate(var(--rot, 0deg));
           }
         }
       `}</style>
