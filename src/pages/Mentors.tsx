@@ -1,10 +1,9 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { Users } from "lucide-react";
 import PersonModal from "../components/Modals/PersonModal";
 import mentorsData from "../data/mentors.json";
 import { Mentor } from "../types/people";
+import BatAnimation from "../components/Animations/BatAnimation";
 
 export default function Mentors() {
   const [mentors, setMentors] = useState<Mentor[]>([]);
@@ -33,6 +32,7 @@ export default function Mentors() {
 
   return (
     <div className="bg-white dark:bg-black min-h-screen">
+      <BatAnimation />
       <section className="bg-gradient-to-br from-black via-red-900 to-black py-20 md:py-32">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center text-white max-w-4xl mx-auto">

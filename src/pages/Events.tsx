@@ -1,4 +1,5 @@
 import { Calendar, Clock, MapPin, Users } from 'lucide-react';
+import BatAnimation from "../components/Animations/BatAnimation";
 
 const events = [
   {
@@ -117,6 +118,7 @@ const getTypeColor = (type: string) => {
 export default function Events() {
   return (
     <div className="bg-white dark:bg-black min-h-screen">
+      <BatAnimation />
       <section className="bg-gradient-to-br from-black via-red-900 to-black py-20 md:py-32">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center text-white max-w-4xl mx-auto">

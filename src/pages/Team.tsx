@@ -1,10 +1,9 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { Users } from "lucide-react";
 import PersonModal from "../components/Modals/PersonModal";
 import teamData from "../data/team_members.json";
 import { TeamMember } from "../types/people";
+import BatAnimation from "../components/Animations/BatAnimation";
 
 export default function Team() {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
@@ -40,6 +39,7 @@ export default function Team() {
 
   return (
     <div className="bg-white dark:bg-black min-h-screen">
+      <BatAnimation />
       <section className="bg-gradient-to-br from-black via-red-900 to-black py-20 md:py-32">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center text-white max-w-4xl mx-auto">
