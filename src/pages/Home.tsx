@@ -4,7 +4,6 @@ import Countdown from "../components/Home/Countdown";
 import RegisterButton from "../components/Home/RegisterButton";
 import WelcomeModal from "../components/Modals/WelcomeModal";
 import BatAnimation from "../components/Animations/BatAnimation";
-// ✔️ Import image as a variable so Vite resolves it to a URL
 import batman from "../assets/batmans.png";
 
 export default function Home() {
