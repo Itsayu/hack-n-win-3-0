@@ -114,7 +114,7 @@ export default function Team() {
               volunteers to join the D4 Community team.
             </p>
             <a
-              href="mailto:team@d4community.com"
+              href="mailto:help.d4community@gmail.com"
               className="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all transform hover:scale-105"
             >
               Get In Touch

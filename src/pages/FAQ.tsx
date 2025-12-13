@@ -142,7 +142,7 @@ export default function FAQ() {
                 Contact Us
               </a>
               <a
-                href="/#register"
+                href="https://hacknwin-3.devfolio.co/overview"
                 className="bg-black dark:bg-white text-white dark:text-black font-bold py-4 px-8 rounded-lg text-lg transition-all transform hover:scale-105"
               >
                 Register Now

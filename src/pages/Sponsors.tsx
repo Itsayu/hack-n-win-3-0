@@ -129,7 +129,7 @@ export default function Sponsors() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
                 <div className="text-4xl mb-3">👥</div>
-                <h3 className="text-xl font-bold mb-2">500+ Participants</h3>
+                <h3 className="text-xl font-bold mb-2">900+ Participants</h3>
                 <p className="text-gray-300 text-sm">Reach talented developers and tech enthusiasts</p>
               </div>
 

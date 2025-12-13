@@ -199,7 +199,7 @@ export default function Events() {
               Don't miss out on this epic experience. Register now and secure your spot!
             </p>
             <a
-              href="/#register"
+              href="https://hacknwin-3.devfolio.co/overview"
               className="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all transform hover:scale-105"
             >
               Register Now

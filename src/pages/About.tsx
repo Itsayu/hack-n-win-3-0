@@ -141,7 +141,7 @@ export default function About() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="/#register"
+                href="https://hacknwin-3.devfolio.co/overview"
                 className="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all transform hover:scale-105"
               >
                 Register for Hackathon
