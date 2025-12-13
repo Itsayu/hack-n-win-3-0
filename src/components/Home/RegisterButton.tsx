@@ -25,7 +25,7 @@ export default function RegisterButton() {
   return (
     <div className="fixed bottom-8 right-8 z-50 animate-slideInRight">
       <a
-        href="#register"
+        href="https://hacknwin-3.devfolio.co/overview"
         className="flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full shadow-2xl transition-all transform hover:scale-105 group"
       >
         <span className="text-lg">Register Now</span>

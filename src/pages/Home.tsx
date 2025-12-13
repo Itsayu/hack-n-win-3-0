@@ -71,7 +71,7 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <a
-                href="#register"
+                href="https://hacknwin-3.devfolio.co/overview"
                 className="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all transform hover:scale-105 shadow-lg"
               >
                 Register Now
@@ -117,7 +117,7 @@ export default function Home() {
             <div className="text-center bg-white/90 dark:bg-gray-800/90 p-8 rounded-xl shadow-lg border-2 border-gray-200 dark:border-gray-800 hover:border-red-600 dark:hover:border-red-600 transition-all transform hover:scale-105 ">
               <Calendar className="w-8 h-8 mx-auto mb-4 text-red-600" />
               <p className="text-2xl font-bold text-black dark:text-white">
-                48
+                24
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-400">Hours</p>
             </div>
@@ -125,7 +125,7 @@ export default function Home() {
             <div className="text-center bg-white/90 dark:bg-gray-800/90 p-8 rounded-xl shadow-lg border-2 border-gray-200 dark:border-gray-800 hover:border-red-600 dark:hover:border-red-600 transition-all transform hover:scale-105">
               <Users className="w-8 h-8 mx-auto mb-4 text-red-600" />
               <p className="text-2xl font-bold text-black dark:text-white">
-                500+
+                900+
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Hackers
@@ -135,7 +135,8 @@ export default function Home() {
             <div className="text-center bg-white/90 dark:bg-gray-800/90 p-8 rounded-xl shadow-lg border-2 border-gray-200 dark:border-gray-800 hover:border-red-600 dark:hover:border-red-600 transition-all transform hover:scale-105">
               <Trophy className="w-8 h-8 mx-auto mb-4 text-red-600" />
               <p className="text-2xl font-bold text-black dark:text-white">
-                $50K
+                {/* $50K */}
+                Yet to be announced
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-400">Prizes</p>
             </div>
@@ -238,7 +239,7 @@ export default function Home() {
               </p>
             </div>
 
-            <form className="space-y-6">
+            {/* <form className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input
                   type="text"
@@ -292,7 +293,7 @@ export default function Home() {
               >
                 Register Now
               </button>
-            </form>
+            </form> */}
           </div>
         </div>
       </section>

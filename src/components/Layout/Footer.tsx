@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Twitter, Linkedin, Github, Mail } from 'lucide-react';
+import { Twitter, Linkedin, Github, Mail, Instagram } from 'lucide-react';
 import logo from '../../assets/batmans.png'
 
 export default function Footer() {
@@ -12,7 +12,6 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center">
-                {/* <span className="text-3xl">🦇</span> */}
                 <img
                   src={logo}
                   alt="Batman logo"
@@ -28,30 +27,56 @@ export default function Footer() {
               Join us for an epic hackathon experience where innovation meets the Dark Knight's spirit.
               Code, create, and conquer challenges in true Batman style.
             </p>
+
+            {/* Updated Social Links */}
             <div className="flex gap-4 mt-6">
+              {/* X (Twitter) */}
               <a
-                href="#"
+                href="https://x.com/d4community"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-800 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors"
-                aria-label="Twitter"
+                aria-label="X (Twitter)"
               >
                 <Twitter className="w-5 h-5" />
               </a>
+
+              {/* Instagram */}
               <a
-                href="#"
+                href="https://www.instagram.com/d4community/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-800 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
+
+              {/* LinkedIn */}
+              <a
+                href="https://www.linkedin.com/company/d4community/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-800 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-5 h-5" />
               </a>
+
+              {/* GitHub */}
               <a
-                href="#"
+                href="https://github.com/D4Community"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-800 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors"
-                aria-label="Github"
+                aria-label="GitHub"
               >
                 <Github className="w-5 h-5" />
               </a>
+
+              {/* Email (optional) */}
               <a
-                href="#"
+                href="mailto:help.d4community@gmail.com"
                 className="w-10 h-10 bg-gray-800 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors"
                 aria-label="Email"
               >
@@ -60,73 +85,38 @@ export default function Footer() {
             </div>
           </div>
 
+          {/* Quick Links & Resources */}
           <div>
             <h4 className="text-lg font-bold mb-4 text-red-600">Quick Links</h4>
             <ul className="space-y-2">
-              <li>
-                <Link to="/" className="text-gray-400 hover:text-white transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link to="/about" className="text-gray-400 hover:text-white transition-colors">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link to="/events" className="text-gray-400 hover:text-white transition-colors">
-                  Events
-                </Link>
-              </li>
-              <li>
-                <Link to="/sponsors" className="text-gray-400 hover:text-white transition-colors">
-                  Sponsors
-                </Link>
-              </li>
+              <li><Link to="/" className="text-gray-400 hover:text-white">Home</Link></li>
+              <li><Link to="/about" className="text-gray-400 hover:text-white">About</Link></li>
+              <li><Link to="/events" className="text-gray-400 hover:text-white">Events</Link></li>
+              <li><Link to="/sponsors" className="text-gray-400 hover:text-white">Sponsors</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-lg font-bold mb-4 text-red-600">Resources</h4>
             <ul className="space-y-2">
-              <li>
-                <Link to="/mentors" className="text-gray-400 hover:text-white transition-colors">
-                  Mentors
-                </Link>
-              </li>
-              <li>
-                <Link to="/team" className="text-gray-400 hover:text-white transition-colors">
-                  Team
-                </Link>
-              </li>
-              <li>
-                <Link to="/faq" className="text-gray-400 hover:text-white transition-colors">
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link to="/code-of-conduct" className="text-gray-400 hover:text-white transition-colors">
-                  Code of Conduct
-                </Link>
-              </li>
+              <li><Link to="/mentors" className="text-gray-400 hover:text-white">Mentors</Link></li>
+              <li><Link to="/team" className="text-gray-400 hover:text-white">Team</Link></li>
+              <li><Link to="/faq" className="text-gray-400 hover:text-white">FAQ</Link></li>
+              <li><Link to="/code-of-conduct" className="text-gray-400 hover:text-white">Code of Conduct</Link></li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-400 text-sm text-center md:text-left">
+          <p className="text-gray-400 text-sm">
             © {currentYear} D4 Community. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm">
-            <Link to="/code-of-conduct" className="text-gray-400 hover:text-white transition-colors">
+            <Link to="/code-of-conduct" className="text-gray-400 hover:text-white">
               Code of Conduct
             </Link>
-            <a href="#" className="text-gray-400 hover:text-white transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white transition-colors">
-              Terms of Service
-            </a>
+            <a href="#" className="text-gray-400 hover:text-white">Privacy Policy</a>
+            <a href="#" className="text-gray-400 hover:text-white">Terms of Service</a>
           </div>
         </div>
       </div>

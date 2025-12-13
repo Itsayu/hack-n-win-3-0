@@ -116,12 +116,12 @@ export default function Mentors() {
               Our mentors will be available throughout the hackathon to help you with technical
               challenges, brainstorming, and project guidance.
             </p>
-            <a
-              href="/#register"
+            {/* <a
+              href="https://hacknwin-3.devfolio.co/overview"
               className="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all transform hover:scale-105"
             >
               Register to Meet Mentors
-            </a>
+            </a> */}
           </div>
         </div>
       </section>
