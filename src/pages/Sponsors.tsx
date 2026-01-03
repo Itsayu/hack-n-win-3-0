@@ -70,6 +70,20 @@ export default function Sponsors() {
 
       <section className="py-16 md:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <p className="text-lg text-gray-700 dark:text-gray-300">
+              We're grateful to our sponsors who make Hack-N-Win 3.0 possible. Their support enables us
+              to provide an exceptional experience for all participants.
+            </p>
+          </div>
+          <div className="space-y-16 text-center">
+            <h1 className='text-5xl font-bold'>Coming Soon!</h1>
+          </div>
+        </div>
+      </section>
+
+      {/* <section className="py-16 md:py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
@@ -115,7 +129,7 @@ export default function Sponsors() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="bg-gradient-to-br from-black via-red-900 to-black py-16 md:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -154,10 +168,10 @@ export default function Sponsors() {
                 Become a Sponsor
               </a>
               <a
-                href="/sponsorship-deck.pdf"
+                href="https://drive.google.com/file/d/1WS2fhpTtYCn8YBhMph1OT2us5rFaLRe7/view?usp=sharing"
                 className="bg-white hover:bg-gray-100 text-black font-bold py-4 px-8 rounded-lg text-lg transition-all transform hover:scale-105"
               >
-                Download Deck
+                Download Brochure
               </a>
             </div>
           </div>

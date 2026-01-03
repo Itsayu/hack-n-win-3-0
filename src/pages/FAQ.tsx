@@ -61,7 +61,7 @@ const faqs = [
   {
     question: 'What if I have more questions?',
     answer:
-      'Feel free to reach out to us at help.d4community@gmail.comm or connect with us on our social media channels. We\'re here to help!',
+      'Feel free to reach out to us at help.d4community@gmail.com or connect with us on our social media channels. We\'re here to help!',
   },
 ];
 
@@ -136,7 +136,7 @@ export default function FAQ() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="mailto:help.d4community@gmail.comm"
+                href="mailto:"
                 className="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all transform hover:scale-105"
               >
                 Contact Us

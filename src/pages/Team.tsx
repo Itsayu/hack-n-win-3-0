@@ -54,7 +54,7 @@ export default function Team() {
         </div>
       </section>
 
-      <section className="py-16 md:py-20">
+      {/* <section className="py-16 md:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
@@ -99,6 +99,20 @@ export default function Team() {
                 ))}
               </div>
             )}
+          </div>
+        </div>
+      </section> */}
+
+            <section className="py-16 md:py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <p className="text-lg text-gray-700 dark:text-gray-300">
+              Our dedicated team works tirelessly to create amazing experiences for the tech community.
+              Get to know the people who make Hack-N-Win 3.0 possible.
+            </p>
+          </div>
+          <div className="space-y-16 text-center">
+            <h1 className='text-5xl font-bold'>Coming Soon!</h1>
           </div>
         </div>
       </section>
