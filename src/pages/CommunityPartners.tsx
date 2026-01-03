@@ -111,7 +111,7 @@ export default function CommunityPartners() {
         </div>
       </section>
 
-      <section className="py-16 md:py-20">
+      {/* <section className="py-16 md:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
@@ -189,6 +189,20 @@ export default function CommunityPartners() {
                 <p className="text-gray-700 dark:text-gray-300">Combined Members</p>
               </div>
             </div>
+          </div>
+        </div>
+      </section> */}
+
+            <section className="py-16 md:py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <p className="text-lg text-gray-700 dark:text-gray-300">
+              We're proud to collaborate with amazing communities and organizations that share our
+              vision of empowering developers and fostering innovation in the tech ecosystem.
+            </p>
+          </div>
+          <div className="space-y-16 text-center">
+            <h1 className='text-5xl font-bold'>Coming Soon!</h1>
           </div>
         </div>
       </section>

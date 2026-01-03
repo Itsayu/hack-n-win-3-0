@@ -1,4 +1,4 @@
-import { Shield, Heart, Users, AlertCircle } from 'lucide-react';
+import { Shield, Heart, Users, AlertCircle, Code, Camera, Gavel } from 'lucide-react';
 import BatAnimation from "../components/Animations/BatAnimation";
 
 export default function CodeOfConduct() {
@@ -26,12 +26,15 @@ export default function CodeOfConduct() {
               <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white">
                 Our Pledge
               </h2>
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
                 We as organizers, mentors, sponsors, and participants pledge to make participation in
                 Hack-N-Win 3.0 a harassment-free experience for everyone, regardless of age, body size,
                 visible or invisible disability, ethnicity, sex characteristics, gender identity and
                 expression, level of experience, education, socio-economic status, nationality, personal
                 appearance, race, religion, or sexual identity and orientation.
+              </p>
+              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                This Code of Conduct applies to all event spaces including hackathons, talks, presentations, demos, workshops, parties, social events, social media channels, and their online counterparts. It applies equally to all sponsors, partners, and projects made at the hackathon.
               </p>
             </div>
 
@@ -81,8 +84,11 @@ export default function CodeOfConduct() {
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold mb-3 text-black dark:text-white">
-                      Unacceptable Behavior
+                      No Discrimination or Harassment
                     </h3>
+                    <p className="text-gray-700 dark:text-gray-300 mb-4">
+                      We are dedicated to providing a safe and comfortable environment. No discrimination shall be tolerated on the basis of gender, gender identity and expression, age, sexual orientation, disability, physical appearance, body size, race, ethnicity, nationality, religion, political views, previous hackathon attendance or lack of, computing experience or lack of, or chosen programming language or tech stack.
+                    </p>
                     <p className="text-gray-700 dark:text-gray-300 mb-4">
                       Examples of unacceptable behavior include:
                     </p>
@@ -90,8 +96,12 @@ export default function CodeOfConduct() {
                       <li className="flex items-start gap-2">
                         <span className="text-red-600 mt-1">✗</span>
                         <span>
-                          The use of sexualized language or imagery and unwelcome sexual attention
+                          The use of sexualized language or imagery and unwelcome sexual attention or advances
                         </span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-red-600 mt-1">✗</span>
+                        <span>Offensive discriminatory verbal comments</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-red-600 mt-1">✗</span>
@@ -100,6 +110,18 @@ export default function CodeOfConduct() {
                       <li className="flex items-start gap-2">
                         <span className="text-red-600 mt-1">✗</span>
                         <span>Public or private harassment of any kind</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-red-600 mt-1">✗</span>
+                        <span>Public display of sexual material in public spaces</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-red-600 mt-1">✗</span>
+                        <span>Deliberate intimidation, stalking, or wilful disruption</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-red-600 mt-1">✗</span>
+                        <span>Inappropriate physical contact</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-red-600 mt-1">✗</span>
@@ -115,6 +137,104 @@ export default function CodeOfConduct() {
                         </span>
                       </li>
                     </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white dark:bg-gray-900 rounded-xl p-8 border-2 border-gray-200 dark:border-gray-800">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Camera className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold mb-3 text-black dark:text-white">
+                      Recording and Photography Consent
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300 mb-4">
+                      While photography and videography is encouraged, participants must be given a reasonable chance to opt out from being photographed or recorded.
+                    </p>
+                    <ul className="space-y-2 text-gray-700 dark:text-gray-300">
+                      <li className="flex items-start gap-2">
+                        <span className="text-red-600 mt-1">•</span>
+                        <span>If someone objects to being photographed or recorded, comply with their request immediately</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-red-600 mt-1">•</span>
+                        <span>If disapproval is expressed after capture, delete the content and retract it from social media if already shared</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-red-600 mt-1">•</span>
+                        <span>Never take photographs in contexts where people have a reasonable expectation of privacy (bathrooms, sleeping areas)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-red-600 mt-1">•</span>
+                        <span>Do not take photographs or recordings without the subject's consent</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white dark:bg-gray-900 rounded-xl p-8 border-2 border-gray-200 dark:border-gray-800">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Code className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold mb-3 text-black dark:text-white">
+                      No Plagiarism or Re-use of Past Work
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300 mb-4">
+                      We encourage you to submit projects only prepared during the hackathon duration. However, if you decide to submit projects with re-used code or re-submit a previous project:
+                    </p>
+                    <ul className="space-y-2 text-gray-700 dark:text-gray-300 mb-4">
+                      <li className="flex items-start gap-2">
+                        <span className="text-red-600 mt-1">•</span>
+                        <span>You must disclose such previous use and its extent with the submission</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-red-600 mt-1">•</span>
+                        <span>Clearly document what is new versus what was previously created</span>
+                      </li>
+                    </ul>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      If undisclosed re-used code is found, organizers may request you to point out similarities and differences between old and new work, and/or disqualify the submission from winning awards automatically.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white dark:bg-gray-900 rounded-xl p-8 border-2 border-gray-200 dark:border-gray-800">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Shield className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold mb-3 text-black dark:text-white">
+                      Creation of a Safe Space
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      No sponsors, partners, or participants shall use sexualized images, activities, or other material at the hackathon for any non-permitted purpose. The use of sexualized clothing/uniforms/costumes, and anything that creates a sexualized environment is prohibited.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white dark:bg-gray-900 rounded-xl p-8 border-2 border-gray-200 dark:border-gray-800">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Code className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold mb-3 text-black dark:text-white">
+                      Intellectual Property
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300 mb-4">
+                      You will own any developments made by you, and all rights, titles, and interests in those developments, including the intellectual property rights therein, shall belong to you.
+                    </p>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      By posting your submission on the platform, you are granting the organizers a non-exclusive, worldwide, royalty-free license to use, distribute, display, and reproduce your submission only to the extent required to provide services on the platform. We will never try to steal your creations or use them exploitatively.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -146,6 +266,36 @@ export default function CodeOfConduct() {
               <div className="bg-white dark:bg-gray-900 rounded-xl p-8 border-2 border-gray-200 dark:border-gray-800">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Gavel className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold mb-3 text-black dark:text-white">
+                      Consequences of Violations
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300 mb-4">
+                      In case any participant violates this Code of Conduct, the organizers may, at their own discretion:
+                    </p>
+                    <ul className="space-y-2 text-gray-700 dark:text-gray-300">
+                      <li className="flex items-start gap-2">
+                        <span className="text-red-600 mt-1">•</span>
+                        <span>Expel them from the hackathon with no refund (if applicable)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-red-600 mt-1">•</span>
+                        <span>Block their access to event resources including the website and platforms</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-red-600 mt-1">•</span>
+                        <span>Report their behavior to local law enforcement</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white dark:bg-gray-900 rounded-xl p-8 border-2 border-gray-200 dark:border-gray-800">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center flex-shrink-0">
                     <Shield className="w-6 h-6 text-white" />
                   </div>
                   <div>
@@ -163,10 +313,9 @@ export default function CodeOfConduct() {
             </div>
 
             <div className="bg-gradient-to-br from-red-900 to-black rounded-2xl p-8 md:p-12 text-white">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center">Reporting Issues</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center">Always Report</h2>
               <p className="text-lg text-gray-300 mb-6 text-center">
-                If you experience or witness unacceptable behavior, or have any other concerns, please
-                report it by contacting the event organizers immediately.
+                If you notice any violation of this Code of Conduct, find suspicious behavior, or have any concerns, please contact a member of the hackathon organizing committee immediately. We will be happy to help participants contact local security or law enforcement, or otherwise assist those experiencing harassment to feel safe for the duration of the hackathon. We value your attendance.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
@@ -175,8 +324,8 @@ export default function CodeOfConduct() {
                 >
                   Report via Email
                 </a>
-                <a
-                  href="#"
+                 <a
+                  href="mailto:help.d4community@gmail.com"
                   className="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all text-center"
                 >
                   Talk to an Organizer
