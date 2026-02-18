@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Calendar, Trophy, Users, Zap } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Calendar, Trophy, Users, Zap, ChevronRight, Rocket, ArrowDown, Moon, Star } from "lucide-react";
 import Countdown from "../components/Home/Countdown";
 import RegisterButton from "../components/Home/RegisterButton";
 import WelcomeModal from "../components/Modals/WelcomeModal";
@@ -7,296 +7,266 @@ import BatAnimation from "../components/Animations/BatAnimation";
 import batman from "../assets/batmans.png";
 
 export default function Home() {
-  // 1. MODAL STATE: State to control modal visibility
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [hoveredCard, setHoveredCard] = useState(null);
+  const heroRef = useRef(null);
 
-  // 2. MODAL EFFECT: Open the modal automatically on component mount (optional)
   useEffect(() => {
-    // If you want Home to control opening after 5s, uncomment below — otherwise WelcomeModal will handle its own auto-open.
-    // const timer = setTimeout(() => setIsModalOpen(true), 5000);
-    // return () => clearTimeout(timer);
+    const handleMouseMove = (e) => {
+      if (heroRef.current) {
+        const rect = heroRef.current.getBoundingClientRect();
+        setMousePosition({
+          x: (e.clientX - rect.left) / rect.width - 0.5,
+          y: (e.clientY - rect.top) / rect.height - 0.5
+        });
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   return (
     <div className="relative">
-      {/* Global bats (keeps the header/hero effect) */}
       <BatAnimation />
-
-      {/* Pass the state and setter function to the WelcomeModal */}
       <WelcomeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-
       <RegisterButton />
 
-      <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-black dark:to-gray-950 overflow-hidden">
-        <div className="absolute inset-0 opacity-5 dark:opacity-10">
-          <div
-            className="absolute top-20 left-20 w-96 h-96 bg-red-600 rounded-full blur-3xl"
-            style={{ animation: "float 6s ease-in-out infinite" }}
-          />
-          <div
-            className="absolute bottom-20 right-20 w-96 h-96 bg-black dark:bg-red-600 rounded-full blur-3xl"
-            style={{ animation: "float 8s ease-in-out infinite reverse" }}
-          />
+      {/* Hero Section */}
+      <section 
+        ref={heroRef}
+        className="relative h-[93vh] flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-black dark:to-gray-950 overflow-hidden"
+      >
+        {/* Background Elements */}
+        <div className="absolute inset-0 opacity-20 dark:opacity-30">
+          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_50%,rgba(220,38,38,0.05),transparent_50%)] dark:bg-[radial-gradient(circle_at_30%_50%,rgba(255,0,0,0.1),transparent_50%)]" />
+          <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_50%,rgba(0,0,0,0.02),transparent_50%)] dark:bg-[radial-gradient(circle_at_70%_50%,rgba(0,0,0,0.2),transparent_50%)]" />
+          
+          {/* Static particles instead of animated */}
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute rounded-full bg-red-400/20 dark:bg-red-500/20"
+              style={{
+                width: Math.random() * 2 + 1 + 'px',
+                height: Math.random() * 2 + 1 + 'px',
+                left: Math.random() * 100 + '%',
+                top: Math.random() * 100 + '%',
+              }}
+            />
+          ))}
         </div>
 
-        <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 relative">
-          <div className="text-center max-w-5xl mx-auto">
-            <div className="mb-4 flex justify-center">
-              <div className="w-48 h-48 bg-white dark:bg-red-600 rounded-full flex items-center justify-center animate-bounce-slow overflow-hidden p-4">
-                {/* Use the imported image variable as src */}
-                <img
-                  src={batman}
-                  alt="Batman logo"
-                  className="w-40 h-40 object-contain"
-                />
+        {/* Parallax Layer */}
+        <div 
+          className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?q=80&w=2070')] bg-cover bg-center opacity-5 dark:opacity-10 transition-transform duration-200 ease-out"
+          style={{
+            transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)`
+          }}
+        />
+
+        <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-4xl mx-auto">
+            {/* Logo */}
+            <div className="mb-8 flex justify-center">
+              <div className="relative">
+                <div className="w-36 h-36 bg-white dark:bg-gradient-to-br dark:from-red-600 dark:to-red-800 rounded-full flex items-center justify-center p-2 border-2 border-gray-200 dark:border-white/10 shadow-xl">
+                  <img
+                    src={batman}
+                    alt="Batman logo"
+                    className="w-28 h-28 object-contain"
+                  />
+                </div>
               </div>
             </div>
 
-            <h1 className="font-bold mb-6 leading-tight">
-              <span className="bg-gradient-to-r from-black via-red-600 to-black dark:from-white dark:via-red-500 dark:to-white bg-clip-text text-transparent text-5xl sm:text-6xl md:text-7xl lg:text-8xl ">
-                Hack-N-Win
-              </span>
-              <br />
-              <span className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl bg-gradient-to-r from-black via-red-600 to-black dark:from-white dark:via-red-500 dark:to-white bg-clip-text text-transparent">3.0</span>
-            </h1>
+            {/* Title */}
+            <div>
+              <h1 className="font-black mb-2 leading-tight">
+                <span className="relative inline-block">
+                  <span className="bg-gradient-to-r from-gray-900 via-red-600 to-gray-900 dark:from-white dark:via-red-400 dark:to-white bg-clip-text text-transparent text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
+                    Hack-N-Win
+                  </span>
+                </span>
+                <br />
+                <span className="relative inline-block">
+                  <span className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl bg-gradient-to-r from-red-600 to-gray-900 dark:from-red-400 dark:via-white dark:to-red-400 bg-clip-text text-transparent">
+                    3.0
+                  </span>
+                </span>
+              </h1>
+            </div>
 
-            <p className="text-xl md:text-2xl lg:text-3xl text-gray-700 dark:text-gray-300 mb-4 font-semibold">
-              Rise Like the Dark Knight
-            </p>
+            {/* Tagline */}
+            <div className="mb-6">
+              <p className="text-xl md:text-2xl text-gray-700 dark:text-white/90 font-light">
+                Rise Like the Dark Knight
+              </p>
+              {/* <div className="flex justify-center gap-3 mt-3">
+                <Moon className="w-4 h-4 text-red-600 dark:text-red-400" />
+                <Star className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
+                <Moon className="w-4 h-4 text-red-600 dark:text-red-400" />
+              </div> */}
+            </div>
 
-            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-3xl mx-auto">
+            {/* Description */}
+            <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
               Join the ultimate hackathon experience where innovation meets the
-              spirit of Gotham. Code in the shadows, emerge victorious.
+              spirit of Gotham. <span className="text-red-600 dark:text-red-400 font-semibold">Code in the shadows</span>, emerge victorious.
             </p>
 
+            {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <a
                 href="https://hacknwin-3.devfolio.co/overview"
-                className="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all transform hover:scale-105 shadow-lg"
+                className="px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold rounded-lg text-base hover:shadow-lg hover:shadow-red-600/30 transition-all duration-300"
               >
-                Register Now
+                <span className="flex items-center gap-2">
+                  Register Now
+                  <Rocket className="w-4 h-4" />
+                </span>
               </a>
               <a
                 href="/about"
-                className="bg-black dark:bg-white text-white dark:text-black font-bold py-4 px-8 rounded-lg text-lg transition-all transform hover:scale-105 shadow-lg"
+                className="px-6 py-3 bg-gray-200 dark:bg-black/50 border-2 border-gray-300 dark:border-white/10 text-gray-800 dark:text-white font-bold rounded-lg text-base hover:border-red-600 transition-all duration-300"
               >
-                Learn More
+                <span className="flex items-center gap-2">
+                  Learn More
+                  <ChevronRight className="w-4 h-4" />
+                </span>
               </a>
-            </div>
-
-            <div className="text-gray-600 dark:text-gray-400 space-y-1">
-              {/* <p className="text-lg">📅 December 31, 2025</p> */}
-              <p className="text-sm">Organized by D4 Community</p>
             </div>
           </div>
         </div>
-
-        <style>{`
-          @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-          }
-          @keyframes bounce-slow {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-          }
-          .animate-bounce-slow { animation: bounce-slow 3s ease-in-out infinite; }
-        `}</style>
       </section>
 
-      <section className="bg-white dark:bg-gray-950 py-16 md:py-20 border-t-4 border-red-600">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Countdown Section */}
+      <section className="relative bg-white dark:bg-gradient-to-r dark:from-gray-900 dark:via-red-950 dark:to-gray-900 py-12 border-y-2 border-red-600">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(220,38,38,0.03),transparent_70%)] dark:bg-[radial-gradient(circle_at_50%_50%,rgba(255,0,0,0.1),transparent_70%)]" />
+        <div className="container mx-auto px-4 relative z-10">
           <Countdown />
         </div>
       </section>
 
-      {/* Stats cards with proper max-width and margin applied */}
-      <section className="bg-gray-50 dark:bg-black py-16 md:py-20">
-        <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-            <div className="text-center bg-white/90 dark:bg-gray-800/90 p-8 rounded-xl shadow-lg border-2 border-gray-200 dark:border-gray-800 hover:border-red-600 dark:hover:border-red-600 transition-all transform hover:scale-105 ">
-              <Calendar className="w-8 h-8 mx-auto mb-4 text-red-600" />
-              <p className="text-2xl font-bold text-black dark:text-white">
-                24
-              </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Hours</p>
-            </div>
-
-            <div className="text-center bg-white/90 dark:bg-gray-800/90 p-8 rounded-xl shadow-lg border-2 border-gray-200 dark:border-gray-800 hover:border-red-600 dark:hover:border-red-600 transition-all transform hover:scale-105">
-              <Users className="w-8 h-8 mx-auto mb-4 text-red-600" />
-              <p className="text-2xl font-bold text-black dark:text-white">
-                900+
-              </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Hackers
-              </p>
-            </div>
-
-            <div className="text-center bg-white/90 dark:bg-gray-800/90 p-8 rounded-xl shadow-lg border-2 border-gray-200 dark:border-gray-800 hover:border-red-600 dark:hover:border-red-600 transition-all transform hover:scale-105">
-              <Trophy className="w-8 h-8 mx-auto mb-4 text-red-600" />
-              <p className="text-2xl font-bold text-black dark:text-white">
-                {/* $50K */}
-                Yet to be announced
-              </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Prizes</p>
-            </div>
-
-            <div className="text-center bg-white/90 dark:bg-gray-800/90 p-8 rounded-xl shadow-lg border-2 border-gray-200 dark:border-gray-800 hover:border-red-600 dark:hover:border-red-600 transition-all transform hover:scale-105">
-              <Zap className="w-8 h-8 mx-auto mb-4 text-red-600" />
-              <p className="text-2xl font-bold text-black dark:text-white">
-                24/7
-              </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Support
-              </p>
-            </div>
+      {/* Stats Cards - Simplified */}
+      <section className="bg-gray-50 dark:bg-gradient-to-b dark:from-black dark:to-gray-900 py-16">
+        <div className="container max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto">
+            {[
+              { icon: Calendar, value: "24", label: "Hours", bgColor: "bg-blue-500" },
+              { icon: Users, value: "1500+", label: "Hackers", bgColor: "bg-green-500" },
+              { icon: Trophy, value: "₹1M+", label: "Prizes", bgColor: "bg-yellow-500" },
+              { icon: Zap, value: "24/7", label: "Support", bgColor: "bg-purple-500" }
+            ].map((stat, index) => (
+              <div
+                key={index}
+                className="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow-md hover:shadow-xl transition-shadow"
+                onMouseEnter={() => setHoveredCard(index)}
+                onMouseLeave={() => setHoveredCard(null)}
+              >
+                <div className={`w-12 h-12 ${stat.bgColor} rounded-lg flex items-center justify-center mx-auto mb-3`}>
+                  <stat.icon className="w-6 h-6 text-white" />
+                </div>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white mb-1">{stat.value}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{stat.label}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-gray-50 dark:bg-black py-16 md:py-20">
-        <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-black dark:text-white">
-            Why Participate?
+      {/* Why Participate Section - Simplified Cards */}
+      <section className="relative bg-white dark:bg-gradient-to-b dark:from-gray-900 dark:to-black py-16">
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-0 w-64 h-64 bg-red-600/5 dark:bg-red-600/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-64 h-64 bg-red-600/5 dark:bg-red-600/10 rounded-full blur-3xl" />
+        </div>
+
+        <div className="container max-w-7xl mx-auto px-4 relative z-10">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            <span className="bg-gradient-to-r from-red-600 to-gray-900 dark:from-red-600 dark:via-white dark:to-red-600 bg-clip-text text-transparent">
+              Why Participate?
+            </span>
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-white dark:bg-gray-900 p-8 rounded-xl border-2 border-gray-200 dark:border-gray-800 hover:border-red-600 dark:hover:border-red-600 transition-all transform hover:scale-105 shadow-lg">
-              <div className="w-16 h-16 bg-red-600 rounded-lg flex items-center justify-center mb-4">
-                <Trophy className="w-8 h-8 text-white" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { icon: Trophy, title: "Amazing Prizes", desc: "Win prizes worth lakhs", bgColor: "bg-gradient-to-br from-yellow-500 to-red-500" },
+              { icon: Users, title: "Network & Learn", desc: "Connect with experts", bgColor: "bg-gradient-to-br from-blue-500 to-purple-500" },
+              { icon: Zap, title: "Build & Ship", desc: "Turn ideas into reality", bgColor: "bg-gradient-to-br from-green-500 to-teal-500" },
+              { icon: Moon, title: "Epic Experience", desc: "Batman-themed adventure", bgColor: "bg-gradient-to-br from-purple-500 to-pink-500" }
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-red-600 transition-all hover:-translate-y-1"
+              >
+                <div className={`w-12 h-12 ${item.bgColor} rounded-lg flex items-center justify-center mb-4`}>
+                  <item.icon className="w-5 h-5 text-white" />
+                </div>
+                <h3 className="text-lg font-bold mb-2 text-gray-900 dark:text-white">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {item.desc}
+                </p>
               </div>
-              <h3 className="text-xl font-bold mb-3 text-black dark:text-white">
-                Amazing Prizes
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Win exciting prizes worth thousands and get recognized for your
-                innovation.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-gray-900 p-8 rounded-xl border-2 border-gray-200 dark:border-gray-800 hover:border-red-600 dark:hover:border-red-600 transition-all transform hover:scale-105 shadow-lg">
-              <div className="w-16 h-16 bg-red-600 rounded-lg flex items-center justify-center mb-4">
-                <Users className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-black dark:text-white">
-                Network & Learn
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Connect with industry experts, mentors, and fellow developers.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-gray-900 p-8 rounded-xl border-2 border-gray-200 dark:border-gray-800 hover:border-red-600 dark:hover:border-red-600 transition-all transform hover:scale-105 shadow-lg">
-              <div className="w-16 h-16 bg-red-600 rounded-lg flex items-center justify-center mb-4">
-                <Zap className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-black dark:text-white">
-                Build & Ship
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Turn your ideas into reality and showcase your projects to the
-                world.
-              </p>
-            </div>
-
-            <div className="bg-white dark:bg-gray-900 p-8 rounded-xl border-2 border-gray-200 dark:border-gray-800 hover:border-red-600 dark:hover:border-red-600 transition-all transform hover:scale-105 shadow-lg">
-              <div className="w-16 h-16 bg-red-600 rounded-lg flex items-center justify-center mb-4">
-                <Calendar className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-black dark:text-white">
-                Epic Experience
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Join a Batman-themed hackathon with unique challenges and
-                atmosphere.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section
-        id="register"
-        className="bg-white dark:bg-gray-950 py-16 md:py-20 border-t-2 border-red-600"
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto bg-gradient-to-br from-black via-red-900 to-black dark:from-red-900 dark:via-black dark:to-red-900 rounded-2xl p-8 md:p-12 text-white shadow-2xl">
-            <div className="text-center mb-8 flex flex-col items-center">
-              <div className="inline-block w-20 h-20 bg-red-600 rounded-full flex items-center justify-center mb-4">
-                {/* <span className="text-5xl">🦇</span> */}
-                <img
-                  src={batman}
-                  alt="Batman logo"
-                  className="w-40 h-40 object-contain"
-                />
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+      {/* Final CTA Section */}
+      <section className="relative bg-gradient-to-r from-red-50 to-gray-100 dark:from-red-900/20 dark:via-black dark:to-red-900/20 py-20">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="inline-block mb-6 p-3 bg-white dark:bg-red-600/10 rounded-full border border-red-200 dark:border-red-600/20">
+              <img
+                src={batman}
+                alt="Batman logo"
+                className="w-20 h-20 object-contain"
+              />
+            </div>
+
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-red-600 to-gray-900 dark:from-red-400 dark:via-white dark:to-red-400 bg-clip-text text-transparent">
                 Ready to Join the League?
-              </h2>
-              <p className="text-lg text-gray-300">
-                Register now and be part of the most exciting hackathon of the
-                year!
-              </p>
+              </span>
+            </h2>
+
+            <p className="text-lg text-gray-700 dark:text-gray-300 mb-8">
+              Register now and be part of the most exciting hackathon! 
+              <span className="block mt-2 text-red-600 dark:text-red-400 font-semibold">Limited spots available</span>
+            </p>
+
+            <a
+              href="https://hacknwin-3.devfolio.co/overview"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold rounded-lg shadow-lg hover:shadow-red-600/30 transition-all hover:-translate-y-0.5"
+            >
+              <span>Register Now</span>
+              <Rocket className="w-4 h-4" />
+            </a>
+
+            {/* Badges */}
+            <div className="flex justify-center gap-3 mt-8">
+              {['Limited Seats', 'Early Bird', 'Exciting Prizes'].map((text, i) => (
+                <div
+                  key={i}
+                  className="px-3 py-1 bg-white dark:bg-white/5 rounded-full border border-gray-200 dark:border-white/10 text-xs text-gray-700 dark:text-white"
+                >
+                  {text}
+                </div>
+              ))}
             </div>
-
-            {/* <form className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <input
-                  type="text"
-                  placeholder="First Name"
-                  className="w-full px-4 py-3 rounded-lg bg-white/10 border-2 border-white/20 text-white placeholder-white/60 focus:border-red-600 focus:outline-none"
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="Last Name"
-                  className="w-full px-4 py-3 rounded-lg bg-white/10 border-2 border-white/20 text-white placeholder-white/60 focus:border-red-600 focus:outline-none"
-                  required
-                />
-              </div>
-
-              <input
-                type="email"
-                placeholder="Email Address"
-                className="w-full px-4 py-3 rounded-lg bg-white/10 border-2 border-white/20 text-white placeholder-white/60 focus:border-red-600 focus:outline-none"
-                required
-              />
-
-              <input
-                type="tel"
-                placeholder="Phone Number"
-                className="w-full px-4 py-3 rounded-lg bg-white/10 border-2 border-white/20 text-white placeholder-white/60 focus:border-red-600 focus:outline-none"
-                required
-              />
-
-              <select
-                className="w-full px-4 py-3 rounded-lg bg-white/10 border-2 border-white/20 text-white focus:border-red-600 focus:outline-none"
-                required
-              >
-                <option value="" className="bg-gray-900">
-                  Select Experience Level
-                </option>
-                <option value="beginner" className="bg-gray-900">
-                  Beginner
-                </option>
-                <option value="intermediate" className="bg-gray-900">
-                  Intermediate
-                </option>
-                <option value="advanced" className="bg-gray-900">
-                  Advanced
-                </option>
-              </select>
-
-              <button
-                type="submit"
-                className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all transform hover:scale-105 shadow-lg"
-              >
-                Register Now
-              </button>
-            </form> */}
           </div>
         </div>
       </section>
+
+      <style>{`
+        .overflow-x-hidden {
+          overflow-x: hidden;
+        }
+      `}</style>
     </div>
   );
 }

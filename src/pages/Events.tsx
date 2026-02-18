@@ -1,4 +1,4 @@
-import { Calendar, Clock, MapPin, Users } from 'lucide-react';
+import { Calendar, Clock, MapPin, Users, Mic, Code, Sparkles, Globe, Briefcase } from 'lucide-react';
 import BatAnimation from "../components/Animations/BatAnimation";
 
 const events = [
@@ -95,11 +95,42 @@ const events = [
   {
     id: 11,
     title: 'Final round of Evaluation',
-    description: 'The top 15 teams present their projects to the judges. Each team has 10 minutes, followed by the felicitation ceremony.',
+    description: 'The top 10 to 15 teams present their projects to the judges. Each team has 10 minutes, followed by the felicitation ceremony.',
     date: 'Mar 8, 2026',
     time: '10:30 AM - 2:00 PM',
     location: 'Main Auditorium',
     type: 'Presentation',
+  },
+];
+
+const workshops = [
+  {
+    id: 1,
+    title: 'Build with AI',
+    description: 'Multiple Google Developers Experts will be joining us for this exclusive session on AI development and implementation.',
+    icon: Sparkles,
+    color: 'from-blue-500 to-cyan-500',
+  },
+  {
+    id: 2,
+    title: 'MongoDB Workshop',
+    description: 'Expert talk and workshop by MongoDB User Group Chandigarh on modern database practices.',
+    icon: Briefcase,
+    color: 'from-green-500 to-emerald-500',
+  },
+  {
+    id: 3,
+    title: 'Snap AR Workshop',
+    description: 'Dive into augmented reality development with Snap AR experts.',
+    icon: Code,
+    color: 'from-yellow-500 to-orange-500',
+  },
+  {
+    id: 4,
+    title: 'Developer Tools Workshop',
+    description: 'Hands-on sessions on Requestly, GitHub, and other essential developer tools.',
+    icon: Globe,
+    color: 'from-purple-500 to-pink-500',
   },
 ];
 
@@ -142,9 +173,88 @@ export default function Events() {
         </div>
       </section>
 
+      {/* Workshops Section */}
+      <section className="py-16 md:py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-black">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center justify-center p-2 px-4 bg-red-100 dark:bg-red-900/30 rounded-full mb-4">
+                <Mic className="w-4 h-4 text-red-600 dark:text-red-400 mr-2" />
+                <span className="text-red-600 dark:text-red-400 font-semibold">Expert Talks & Workshops</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 text-black dark:text-white">
+                Learn from the Best
+              </h2>
+              <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                Alongside the hackathon, we're hosting multiple expert sessions and workshops
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+              {workshops.map((workshop) => (
+                <div
+                  key={workshop.id}
+                  className="group relative bg-white dark:bg-gray-900 rounded-2xl border-2 border-gray-200 dark:border-gray-800 hover:border-red-600 dark:hover:border-red-600 transition-all overflow-hidden"
+                >
+                  <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${workshop.color}`} />
+                  <div className="p-8">
+                    <div className="flex items-start gap-4">
+                      <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${workshop.color} flex items-center justify-center flex-shrink-0 transform group-hover:scale-110 transition-transform`}>
+                        <workshop.icon className="w-7 h-7 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-2xl font-bold text-black dark:text-white mb-2">
+                          {workshop.title}
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-400 mb-4">
+                          {workshop.description}
+                        </p>
+                        <div className="flex items-center text-red-600 dark:text-red-400 font-medium">
+                          <Clock className="w-4 h-4 mr-2" />
+                          <span>Agenda announced soon</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Additional Workshops Banner */}
+            <div className="bg-gradient-to-r from-red-600 to-red-800 rounded-2xl p-8 text-white text-center">
+              <h3 className="text-2xl md:text-3xl font-bold mb-4">And Many More!</h3>
+              <p className="text-lg md:text-xl opacity-90 max-w-3xl mx-auto">
+                Fun activities, challenges, and workshops on Requestly, GitHub, FunActive, Chainalysis, and more. 
+                Stay tuned for the complete schedule!
+              </p>
+              <div className="mt-6 flex flex-wrap justify-center gap-3">
+                {['Requestly', 'GitHub', 'FunActive', 'Chainalysis', 'Snap AR', 'MongoDB'].map((item) => (
+                  <span
+                    key={item}
+                    className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium border border-white/30"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Schedule Section */}
       <section className="py-16 md:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 text-black dark:text-white">
+                Hackathon Schedule
+              </h2>
+              <p className="text-xl text-gray-600 dark:text-gray-400">
+                24 hours of innovation, coding, and collaboration
+              </p>
+            </div>
+            
             <div className="space-y-8">
               {events.map((event) => (
                 <div
