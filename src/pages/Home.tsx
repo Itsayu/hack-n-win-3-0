@@ -156,7 +156,7 @@ export default function Home() {
             {[
               { icon: Calendar, value: "24", label: "Hours", bgColor: "bg-blue-500" },
               { icon: Users, value: "1500+", label: "Hackers", bgColor: "bg-green-500" },
-              { icon: Trophy, value: "₹1M+", label: "Prizes", bgColor: "bg-yellow-500" },
+              { icon: Trophy, value: "₹10,00,000+", label: "Prizes", bgColor: "bg-yellow-500" },
               { icon: Zap, value: "24/7", label: "Support", bgColor: "bg-purple-500" }
             ].map((stat, index) => (
               <div
