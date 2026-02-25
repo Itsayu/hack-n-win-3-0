@@ -1,252 +1,131 @@
-import { Handshake, Globe, BookOpen, Code, Users } from "lucide-react";
+import { Handshake, BookOpen } from "lucide-react";
 import BatAnimation from "../components/Animations/BatAnimation";
 
+interface Partner {
+  id: number;
+  name: string;
+  image: string;
+}
+
 const partners = [
-  {
-    id: 1,
-    name: "Tech Community Network",
-    logo: "🌐",
-    description:
-      "A global network connecting tech communities worldwide, fostering collaboration and knowledge sharing.",
-    type: "Community",
-    website: "techcommunity.org",
-  },
-  {
-    id: 2,
-    name: "Code for Good",
-    logo: "💚",
-    description:
-      "Non-profit organization using technology to solve social problems and make the world a better place.",
-    type: "Non-Profit",
-    website: "codeforgood.org",
-  },
-  {
-    id: 3,
-    name: "Developer Circle",
-    logo: "⭕",
-    description:
-      "Local developer communities around the world, bringing together passionate technologists.",
-    type: "Community",
-    website: "developercircle.io",
-  },
-  {
-    id: 4,
-    name: "Open Source Initiative",
-    logo: "🔓",
-    description:
-      "Promoting and protecting open source software development and communities worldwide.",
-    type: "Organization",
-    website: "opensource.org",
-  },
-  {
-    id: 5,
-    name: "Women in Tech",
-    logo: "👩‍💻",
-    description:
-      "Empowering women in technology through mentorship, education, and community support.",
-    type: "Community",
-    website: "womenintech.org",
-  },
-  {
-    id: 6,
-    name: "Student Developer Club",
-    logo: "🎓",
-    description:
-      "University-based community helping students learn about technology and prepare for tech careers.",
-    type: "Educational",
-    website: "studentdev.club",
-  },
-  {
-    id: 7,
-    name: "Hackathon League",
-    logo: "🏆",
-    description:
-      "Platform connecting hackathons globally and providing resources for organizers and participants.",
-    type: "Platform",
-    website: "hackathonleague.com",
-  },
-  {
-    id: 8,
-    name: "Indie Hackers",
-    logo: "🚀",
-    description:
-      "Community of founders helping each other build profitable online businesses and products.",
-    type: "Community",
-    website: "indiehackers.com",
-  },
+  { id: 1, name: "Encrypt Edge", image: "/partners/Encrypt Edge.png" },
+  { id: 2, name: "ISTE Student Chapter CGCU", image: "/partners/ISTE Student Chapter CGCU.png" },
+  { id: 3, name: "The Kailshians", image: "/partners/The Kailshians.png" },
+  { id: 4, name: "CodeZen Community", image: "/partners/CodeZen.png" },
+  { id: 5, name: "ACM Student Chapter", image: "/partners/ACM Student Chapter.png" },
+  { id: 6, name: "GODC", image: "/partners/GODC.png" },
+  { id: 7, name: "OffSecDiary", image: "/partners/OffSecDiary.png" },
+  { id: 8, name: "Bug2Build", image: "/partners/Bug2Build.png" },
+  { id: 9, name: "SheBuilds", image: "/partners/SheBuilds.png" },
+  { id: 10, name: "Event Dev X", image: "/partners/Event DevX.png" },
+  { id: 11, name: "Papaya Coders", image: "/partners/Papaya Coders.png" },
+  { id: 12, name: "DevLearn", image: "/partners/DevLearn.png" },
+  { id: 13, name: "CU Updates", image: "/partners/CU Updates.png" },
+  { id: 14, name: "Ajinava Edge", image: "/partners/Ajinava Edge.png" },
+  { id: 15, name: "Ascent Circle", image: "/partners/Ascent circle.png" },
+  { id: 16, name: "The SEED Club", image: "/partners/The Seed Club.png" },
+  { id: 17, name: "HackHalt Community", image: "/partners/HackHalt.png" },
+  { id: 18, name: "InnovateX Engineers Community", image: "/partners/InnovateX Engineers Community.png" },
+  { id: 19, name: "FlutterFlow Developers New Delhi", image: "/partners/FlutterFlow Developer Groups New Delhi.png" },
+  { id: 20, name: "Apna Coding", image: "/partners/Apna Coding.png" },
+  { id: 21, name: "Open Source Chandigarh", image: "/partners/Open Source Chandigarh.png" },
+  { id: 22, name: "C Square", image: "/partners/C Square.png" },
+  { id: 23, name: "GDG CGC COE", image: "/partners/GDG on Campus CGC COE.png" },
+  { id: 24, name: "GDG MMDU Mullana", image: "/partners/GDG on Campus MM(DU), Mullana, Ambala.png" },
+  { id: 25, name: "Wiztron", image: "/partners/Wiztron.png" },
+  { id: 26, name: "ITMBUGSA", image: "/partners/ITMBUGSA.png" },
+  { id: 27, name: "GDGoC", image: "/partners/GDGoCPEC.png" },
+  { id: 28, name: "Tensorik Technologies", image: "/partners/Tensorik Technologies Private Limited.png" },
+  { id: 29, name: "GDGoC SVIET", image: "/partners/GDGoC SVIET.png" },
+  { id: 30, name: "The Uniques Community", image: "/partners/The Uniques Community .png" },
+  { id: 31, name: "React Kolkata", image: "/partners/React Kolkata.png" },
+  { id: 32, name: "MERN Stack Club", image: "/partners/MERN Stack Club.png" },
+  { id: 33, name: "GDG TMSL", image: "/partners/GDG on Campus TMSL.png" },
+  { id: 34, name: "GDG IGC", image: "/partners/Google Developer Groups on Campus IGC.png" },
+  { id: 35, name: "GDGoC IET DAVV", image: "/partners/GDGoC IET DAVV.png" },
+  { id: 36, name: "GDG BBDNIIT Lucknow", image: "/partners/GDG BBDNIIT, Lucknow.png" },
+  { id: 37, name: "GDG SLIET", image: "/partners/GDG on Campus SLIET.png" },
+  { id: 38, name: "Dream Coders", image: "/partners/Dream Coders.png" },
+  { id: 39, name: "GDG TAE", image: "/partners/Google Developer Groups on Campus TAE.png" },
+  { id: 40, name: "React Rajasthan", image: "/partners/React Rajasthan.png" },
+  { id: 41, name: "DevHive", image: "/partners/DevHive.png" },
+  { id: 42, name: "Coding Club IIT Jammu", image: "/partners/Coding Club, IIT Jammu.png" },
+  { id: 43, name: "ZenYukti", image: "/partners/ZenYukti.png" },
+  { id: 44, name: "VIDYUTAM VERDE", image: "/partners/VIDYUTAM VERDE.png" },
+  { id: 45, name: "TheDevArmy", image: "/partners/theDevArmy.png" },
+  { id: 46, name: "Nomad Coder", image: "/partners/nomadcoder.png" },
+  { id: 47, name: "NodeZer0", image: "/partners/NodeZer0.png" },
+  { id: 48, name: "IEEE Student Branch", image: "/partners/IEEE Student Branch.png" },
+  { id: 49, name: "Shadow Script Community", image: "/partners/Shadow Script Community.png" },
+  { id: 50, name: "ICA", image: "/partners/ICA.png" },
+  { id: 51, name: "GDG IIIT Kalyani", image: "/partners/GDG on Campus, IIIT Kalyani.png" },
+  { id: 52, name: "GDGOC-DGI", image: "/partners/GDGOC-DGI.png" },
+  { id: 53, name: "AI Community Delhi", image: "/partners/AI Delhi.png" },
+  { id: 54, name: "MongoDB User Group Chandigarh", image: "/partners/MUG CHD.png" },
+  { id: 55, name: "Slay", image: "/partners/Slay.png" },
+  { id: 56, name: "GDG Cloud Chandigarh", image: "/partners/GDGC CHD.png" },
+  { id: 57, name: "Girls Leading Tech", image: "/partners/Girls Leading Tech.png" },
+  { id: 58, name: "ML Chandigarh", image: "/partners/ML Chandigarh.png" },
+  { id: 59, name: "GDG Jalandhar", image: "/partners/GDG Jalandhar.png" },
+  { id: 60, name: "GDG Chandigarh", image: "/partners/GDG Chandigarh.png" },
+  { id: 61, name: "GrowIn Community", image: "/partners/GrowIn Community.png" },
+  { id: 62, name: "YATU Learn", image: "/partners/YATU Learn.png" },
 ];
-
-const getTypeColor = (type: string) => {
-  switch (type) {
-    case "Community":
-      return "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border-blue-300 dark:border-blue-700";
-    case "Non-Profit":
-      return "bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 border-green-300 dark:border-green-700";
-    case "Organization":
-      return "bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 border-purple-300 dark:border-purple-700";
-    case "Educational":
-      return "bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 border-orange-300 dark:border-orange-700";
-    case "Platform":
-      return "bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400 border-pink-300 dark:border-pink-700";
-    default:
-      return "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-700";
-  }
-};
-
 export default function CommunityPartners() {
   return (
-    <div className="bg-white dark:bg-black min-h-screen">
+    <div className="bg-white dark:bg-black min-h-screen text-black dark:text-white">
       <BatAnimation />
-      <section className="bg-gradient-to-br from-black via-red-900 to-black py-20 md:py-32">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center text-white max-w-4xl mx-auto">
-            <div className="w-24 h-24 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-8">
-              <Handshake className="w-12 h-12" />
-            </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">Community Partners</h1>
-            <p className="text-xl md:text-2xl text-gray-300">
-              Building bridges across tech communities worldwide
-            </p>
-          </div>
+
+      {/* Hero */}
+      <section className="py-24 text-center bg-gradient-to-br from-white via-red-50 to-white dark:from-black dark:via-red-950 dark:to-black border-b border-red-200 dark:border-red-900">
+        <div className="w-24 h-24 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg shadow-red-500/30">
+          <Handshake className="w-12 h-12 text-white" />
         </div>
+
+        <h1 className="text-5xl font-bold mb-6">Community Partners</h1>
+        <p className="text-xl text-gray-600 dark:text-gray-400">
+          Proudly collaborating with {partners.length}+ tech communities
+        </p>
       </section>
 
-      {/* <section className="py-16 md:py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-                We're proud to collaborate with amazing communities and organizations that share our
-                vision of empowering developers and fostering innovation in the tech ecosystem.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-              {partners.map((partner) => {
-                // ensure website has protocol
-                const href =
-                  partner.website.startsWith("http://") || partner.website.startsWith("https://")
-                    ? partner.website
-                    : `https://${partner.website}`;
-
-                return (
-                  <div
-                    key={partner.id}
-                    className="bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-800 hover:border-red-600 dark:hover:border-red-600 p-6 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
-                  >
-                    <div className="text-center mb-4">
-                      <div className="text-6xl mb-4">{partner.logo}</div>
-                      <h3 className="text-xl font-bold text-black dark:text-white mb-2">
-                        {partner.name}
-                      </h3>
-                      <span
-                        className={`inline-block px-3 py-1 rounded-full text-sm font-semibold border ${getTypeColor(
-                          partner.type
-                        )}`}
-                      >
-                        {partner.type}
-                      </span>
-                    </div>
-                    <p className="text-gray-700 dark:text-gray-300 text-sm mb-4 text-center">
-                      {partner.description}
-                    </p>
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 text-red-600 dark:text-red-400 hover:underline text-sm font-semibold"
-                    >
-                      <Globe className="w-4 h-4" />
-                      Visit Website
-                    </a>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-white dark:bg-gray-900 rounded-xl p-8 border-2 border-gray-200 dark:border-gray-800 text-center">
-                <div className="w-16 h-16 bg-red-600 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-black dark:text-white mb-2">8+</h3>
-                <p className="text-gray-700 dark:text-gray-300">Partner Communities</p>
-              </div>
-
-              <div className="bg-white dark:bg-gray-900 rounded-xl p-8 border-2 border-gray-200 dark:border-gray-800 text-center">
-                <div className="w-16 h-16 bg-red-600 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Globe className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-black dark:text-white mb-2">Global</h3>
-                <p className="text-gray-700 dark:text-gray-300">Worldwide Reach</p>
-              </div>
-
-              <div className="bg-white dark:bg-gray-900 rounded-xl p-8 border-2 border-gray-200 dark:border-gray-800 text-center">
-                <div className="w-16 h-16 bg-red-600 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Code className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-black dark:text-white mb-2">10K+</h3>
-                <p className="text-gray-700 dark:text-gray-300">Combined Members</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-            <section className="py-16 md:py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <p className="text-lg text-gray-700 dark:text-gray-300">
-              We're proud to collaborate with amazing communities and organizations that share our
-              vision of empowering developers and fostering innovation in the tech ecosystem.
-            </p>
-          </div>
-          <div className="space-y-16 text-center">
-            <h1 className='text-5xl font-bold'>Coming Soon!</h1>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-gradient-to-br from-black via-red-900 to-black py-16 md:py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center text-white">
-            <div className="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-6">
-              <BookOpen className="w-10 h-10" />
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Become a Community Partner</h2>
-            <p className="text-xl text-gray-300 mb-8">
-              Are you part of a tech community or organization? Join our network of community partners
-              and collaborate with us to create amazing experiences for developers worldwide.
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-                <div className="text-4xl mb-3">🤝</div>
-                <h3 className="text-xl font-bold mb-2">Collaborate</h3>
-                <p className="text-gray-300 text-sm">Work together on events and initiatives</p>
-              </div>
-
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-                <div className="text-4xl mb-3">📢</div>
-                <h3 className="text-xl font-bold mb-2">Amplify</h3>
-                <p className="text-gray-300 text-sm">Share resources and reach new audiences</p>
-              </div>
-
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-                <div className="text-4xl mb-3">🌱</div>
-                <h3 className="text-xl font-bold mb-2">Grow</h3>
-                <p className="text-gray-300 text-sm">Expand your community's impact together</p>
-              </div>
-            </div>
-
-            <a
-              href="mailto:partners@d4community.com"
-              className="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all transform hover:scale-105"
+      {/* Grid */}
+      <section className="py-20 px-4">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-10">
+          {partners.map((partner) => (
+            <div
+              key={partner.id}
+              className="bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-2xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300 hover:-translate-y-1"
             >
-              Partner With Us
-            </a>
-          </div>
+              <img
+                src={partner.image}
+                alt={partner.name}
+                className="h-16 object-contain mb-4 grayscale hover:grayscale-0 transition"
+              />
+              <h3 className="text-sm font-semibold">
+                {partner.name}
+              </h3>
+            </div>
+          ))}
         </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20 text-center bg-gradient-to-br from-white via-red-50 to-white dark:from-black dark:via-red-950 dark:to-black border-t border-red-200 dark:border-red-900">
+        <div className="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-md shadow-red-500/30">
+          <BookOpen className="w-10 h-10 text-white" />
+        </div>
+
+        <h2 className="text-4xl font-bold mb-6">Become a Community Partner</h2>
+        <p className="text-gray-600 dark:text-gray-400 mb-10">
+          Join our growing network and collaborate with us.
+        </p>
+
+        <a
+          href="mailto:partners@d4community.com"
+          className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-xl font-bold transition hover:scale-105 shadow-md shadow-red-500/30"
+        >
+          Partner With Us
+        </a>
       </section>
     </div>
   );
