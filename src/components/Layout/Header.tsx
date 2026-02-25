@@ -17,7 +17,7 @@ const moreLinks = [
   { href: '/faq', label: 'FAQ' },
   { href: '/code-of-conduct', label: 'Code of Conduct' },
   { href: '/community-partners', label: 'Community Partners' },
-  { href: '/badge', label: 'Badge' },
+  // { href: '/badge', label: 'Badge' },
 ];
 
 export default function Header() {
