@@ -6,9 +6,8 @@ type Bat = {
   id: number;
   direction: "ltr" | "rtl";
   top: number;
-  startSide: "left" | "right";
   duration: number;
-  rotate: number;
+  rotate: number; // Base rotation tilt
   size: number;
 };
 
@@ -20,14 +19,16 @@ export default function BatAnimation() {
   const maxBats = 7;
   const spawnMinMs = 700;
   const spawnMaxMs = 1500;
-  const minDuration = 12; // Increased from 6
-  const maxDuration = 28; // Increased from 14
+  const minDuration = 12;
+  const maxDuration = 28;
 
   useEffect(() => {
     spawnBat();
 
     const spawnLoop = () => {
-      const delay = Math.round(Math.random() * (spawnMaxMs - spawnMinMs) + spawnMinMs);
+      const delay = Math.round(
+        Math.random() * (spawnMaxMs - spawnMinMs) + spawnMinMs
+      );
       intervalRef.current = window.setTimeout(() => {
         spawnBat();
         spawnLoop();
@@ -48,8 +49,7 @@ export default function BatAnimation() {
 
       const id = nextId.current++;
       const direction = Math.random() > 0.5 ? ("ltr" as const) : ("rtl" as const);
-      const startSide = direction === "ltr" ? "left" : "right";
-
+      
       const cornerChance = Math.random();
       let top: number;
       if (cornerChance < 0.18) {
@@ -60,11 +60,13 @@ export default function BatAnimation() {
         top = 6 + Math.random() * 84;
       }
 
-      const duration = Number((Math.random() * (maxDuration - minDuration) + minDuration).toFixed(2));
+      const duration = Number(
+        (Math.random() * (maxDuration - minDuration) + minDuration).toFixed(2)
+      );
       const rotate = (Math.random() - 0.5) * 40;
       const size = Math.random() * 0.9 + 1.0;
 
-      const bat: Bat = { id, direction, top, startSide, duration, rotate, size };
+      const bat: Bat = { id, direction, top, duration, rotate, size };
       return [...prev, bat];
     });
   }
@@ -77,70 +79,92 @@ export default function BatAnimation() {
     <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
       {bats.map((bat) => {
         const isLTR = bat.direction === "ltr";
-        const startLeft = isLTR ? "-60px" : "calc(100% + 60px)";
-        const endLeft = isLTR ? "calc(100% + 60px)" : "-60px";
-        const animationName = isLTR ? "fly-ltr" : "fly-rtl";
-
+        
+        // We split the animation into two parts:
+        // 1. Move X (The linear travel across screen)
+        // 2. Wobble Y (The flapping up and down)
+        const moveAnimationName = isLTR ? "move-ltr" : "move-rtl";
+        
         return (
           <div
             key={bat.id}
             onAnimationEnd={() => handleAnimationEnd(bat.id)}
-            className="absolute"
+            className="absolute pointer-events-none will-change-transform"
             style={{
               top: `${Math.max(0, Math.min(100, bat.top))}%`,
-              left: startLeft,
-              fontSize: `${bat.size}em`,
+              left: 0, // Fixed left, we move using transform
+              width: "100%", // Takes full width so we can translate relative to viewport
+              height: "0px", // Minimal height wrapper
               opacity: 0.18,
-              transform: `rotate(${bat.rotate}deg)`,
-              animationName,
+              fontSize: `${bat.size}em`,
+              // This outer div handles the Horizontal Movement (X axis)
+              animationName: moveAnimationName,
               animationDuration: `${bat.duration}s`,
               animationTimingFunction: "linear",
               animationFillMode: "forwards",
-              animationDelay: `${(Math.random() * 0.6).toFixed(2)}s`,
-              willChange: "transform, left",
             }}
             aria-hidden
           >
-            <span style={{ display: "inline-block" }}>🦇</span>
+            {/* The inner div handles the Wobble (Y axis) and Rotation */}
+            <div
+              className="absolute will-change-transform"
+              style={{
+                left: 0, 
+                // We pass the random rotation as a CSS variable to the keyframes
+                // @ts-ignore
+                "--rot": `${bat.rotate}deg`,
+                animationName: isLTR ? "wobble-ltr" : "wobble-rtl",
+                animationDuration: `${bat.duration}s`, 
+                animationTimingFunction: "linear",
+                animationFillMode: "forwards",
+              }}
+            >
+               <span style={{ display: "inline-block" }}>🦇</span>
+            </div>
           </div>
         );
       })}
 
       <style>{`
-        @keyframes fly-ltr {
-          0% {
-            left: -60px;
-            transform: translateY(0) rotate(var(--rot, 0deg));
-          }
-          10% { transform: translateY(-8px) rotate(var(--rot, 0deg)); }
-          20% { transform: translateY(6px) rotate(var(--rot, 0deg)); }
-          30% { transform: translateY(-6px) rotate(var(--rot, 0deg)); }
-          40% { transform: translateY(4px) rotate(var(--rot, 0deg)); }
-          50% { transform: translateY(0) rotate(calc(var(--rot, 0deg) + 10deg)); }
-          60% { transform: translateY(-4px) rotate(calc(var(--rot, 0deg) - 6deg)); }
-          80% { transform: translateY(2px) rotate(var(--rot, 0deg)); }
-          100% {
-            left: calc(100% + 60px);
-            transform: translateY(0) rotate(var(--rot, 0deg));
-          }
+        /* HORIZONTAL MOVEMENT (X-AXIS)
+           Using translate3d forces GPU acceleration 
+        */
+        @keyframes move-ltr {
+          from { transform: translate3d(-100px, 0, 0); }
+          to   { transform: translate3d(100vw, 0, 0); }
         }
 
-        @keyframes fly-rtl {
-          0% {
-            left: calc(100% + 60px);
-            transform: translateY(0) rotate(var(--rot, 0deg));
-          }
-          10% { transform: translateY(-8px) rotate(var(--rot, 0deg)); }
-          20% { transform: translateY(6px) rotate(var(--rot, 0deg)); }
-          30% { transform: translateY(-6px) rotate(var(--rot, 0deg)); }
-          40% { transform: translateY(4px) rotate(var(--rot, 0deg)); }
-          50% { transform: translateY(0) rotate(calc(var(--rot, 0deg) - 10deg)); }
-          60% { transform: translateY(-4px) rotate(calc(var(--rot, 0deg) + 6deg)); }
-          80% { transform: translateY(2px) rotate(var(--rot, 0deg)); }
-          100% {
-            left: -60px;
-            transform: translateY(0) rotate(var(--rot, 0deg));
-          }
+        @keyframes move-rtl {
+          from { transform: translate3d(100vw, 0, 0); }
+          to   { transform: translate3d(-100px, 0, 0); }
+        }
+
+        /* VERTICAL WOBBLE (Y-AXIS + ROTATION) 
+           This runs inside the moving wrapper.
+           We removed 'left' and only animate Y and Rotation.
+        */
+        @keyframes wobble-ltr {
+          0%   { transform: translateY(0) rotate(var(--rot)); }
+          10%  { transform: translateY(-8px) rotate(var(--rot)); }
+          20%  { transform: translateY(6px) rotate(var(--rot)); }
+          30%  { transform: translateY(-6px) rotate(var(--rot)); }
+          40%  { transform: translateY(4px) rotate(var(--rot)); }
+          50%  { transform: translateY(0) rotate(calc(var(--rot) + 10deg)); }
+          60%  { transform: translateY(-4px) rotate(calc(var(--rot) - 6deg)); }
+          80%  { transform: translateY(2px) rotate(var(--rot)); }
+          100% { transform: translateY(0) rotate(var(--rot)); }
+        }
+
+        @keyframes wobble-rtl {
+          0%   { transform: translateY(0) rotate(var(--rot)); }
+          10%  { transform: translateY(-8px) rotate(var(--rot)); }
+          20%  { transform: translateY(6px) rotate(var(--rot)); }
+          30%  { transform: translateY(-6px) rotate(var(--rot)); }
+          40%  { transform: translateY(4px) rotate(var(--rot)); }
+          50%  { transform: translateY(0) rotate(calc(var(--rot) - 10deg)); }
+          60%  { transform: translateY(-4px) rotate(calc(var(--rot) + 6deg)); }
+          80%  { transform: translateY(2px) rotate(var(--rot)); }
+          100% { transform: translateY(0) rotate(var(--rot)); }
         }
       `}</style>
     </div>
