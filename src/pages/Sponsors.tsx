@@ -1,5 +1,5 @@
 import React from "react";
-import { Star, Trophy, Award, Gem, Sparkles, ArrowRight } from "lucide-react";
+import { Star, Trophy, Award, Gem, Sparkles, ArrowRight, ImageOff } from "lucide-react";
 import BatAnimation from "../components/Animations/BatAnimation";
 
 interface Sponsor {
@@ -22,8 +22,8 @@ const sponsorTiers: SponsorTier[] = [
     icon: Gem,
     color: "text-blue-400",
     sponsors: [
-      { name: "Mastra", image: "/src/assets/sponsors/Mastra.png" },
-      { name: "n8n", image: "/src/assets/sponsors/n8n.png" },
+      { name: "Mastra", image: "/sponsors/Mastra.png" },
+      { name: "n8n", image: "/sponsors/n8n.png" },
     ],
   },
   {
@@ -32,9 +32,9 @@ const sponsorTiers: SponsorTier[] = [
     icon: Trophy,
     color: "text-yellow-400",
     sponsors: [
-      { name: "Featherless.ai", image: "/src/assets/sponsors/featherless.ai.png" },
-      { name: ".xyz", image: "/src/assets/sponsors/xyz.png" },
-      { name: "Requestly", image: "/src/assets/sponsors/Requestly.png" },
+      { name: "Featherless.ai", image: "/sponsors/featherless.ai.png" },
+      { name: ".xyz", image: "/sponsors/xyz.png" },
+      { name: "Requestly", image: "/sponsors/Requestly.png" },
     ],
   },
   {
@@ -43,8 +43,8 @@ const sponsorTiers: SponsorTier[] = [
     icon: Award,
     color: "text-slate-400",
     sponsors: [
-      { name: "Github", image: "/src/assets/sponsors/GitHub.png" },
-      { name: "V0", image: "/src/assets/sponsors/v0.png" },
+      { name: "Github", image: "/sponsors/GitHub.png" },
+      { name: "V0", image: "/sponsors/v0.png" },
     ],
   },
   {
@@ -53,14 +53,14 @@ const sponsorTiers: SponsorTier[] = [
     icon: Star,
     color: "text-orange-400",
     sponsors: [
-      { name: "Osen", image: "/src/assets/sponsors/OSEN 1.png" },
-      { name: "Interview Buddy", image: "/src/assets/sponsors/Interview Buddy.png" },
-      { name: "Fueler", image: "/src/assets/sponsors/Fueler.png" },
-      { name: "Navan", image: "/src/assets/sponsors/navan.png" },
-      { name: "ETH India", image: "/src/assets/sponsors/ETH India.png" },
-      { name: "GDG Jalandhar", image: "/src/assets/sponsors/GDG Jalandhar.png" },
-      { name: "niwi.ai", image: "/src/assets/sponsors/niwi.png" },
-      { name: "curvet", image: "/src/assets/sponsors/Curvet.png" },
+      { name: "Osen", image: "/sponsors/OSEN 1.png" },
+      { name: "Interview Buddy", image: "/sponsors/Interview Buddy.png" },
+      { name: "Fueler", image: "/sponsors/Fueler.png" },
+      { name: "Navan", image: "/sponsors/navan.png" },
+      { name: "ETH India", image: "/sponsors/ETH India.png" },
+      { name: "GDG Jalandhar", image: "/sponsors/GDG Jalandhar.png" },
+      { name: "niwi.ai", image: "/sponsors/niwi.png" },
+      { name: "curvet", image: "/sponsors/Curvet.png" },
     ],
   },
   {
@@ -69,8 +69,8 @@ const sponsorTiers: SponsorTier[] = [
     icon: Sparkles,
     color: "text-indigo-400",
     sponsors: [
-      { name: "Duality", image: "/src/assets/sponsors/Duality.png" },
-      { name: "Requestly", image: "/src/assets/sponsors/Requestly.png" },
+      { name: "Duality", image: "/sponsors/Duality.png" },
+      { name: "Requestly", image: "/sponsors/Requestly.png" },
     ],
   },
   {
@@ -79,7 +79,7 @@ const sponsorTiers: SponsorTier[] = [
     icon: Gem,
     color: "text-red-400",
     sponsors: [
-      { name: "VentureNest", image: "/src/assets/sponsors/venturenest.png" },
+      { name: "VentureNest", image: "/sponsors/venturenest.png" },
     ],
   },
 ];
@@ -144,7 +144,12 @@ export default function Sponsors() {
                 >
                   <img
                     src={sponsor.image}
-                    alt={sponsor.name}
+                    alt={`${sponsor.name} logo`}
+                    // Added a fallback gracefully if an image fails to load
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).style.display = 'none';
+                      (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
+                    }}
                     className="
                       max-h-full max-w-full object-contain transition-all duration-300 
                       
@@ -156,6 +161,12 @@ export default function Sponsors() {
                       dark:group-hover:brightness-100 dark:group-hover:invert-0
                     " 
                   />
+                  
+                  {/* Fallback text if image breaks */}
+                  <div className="hidden text-center text-zinc-500 font-semibold flex-col items-center gap-2">
+                    <ImageOff className="w-6 h-6 opacity-50" />
+                    <span className="text-sm">{sponsor.name}</span>
+                  </div>
                   
                   {/* Tooltip Name */}
                   <div className="absolute bottom-2 opacity-0 group-hover:opacity-100 transition-opacity text-[10px] font-bold text-zinc-400 dark:group-hover:text-zinc-500 uppercase tracking-wider">
